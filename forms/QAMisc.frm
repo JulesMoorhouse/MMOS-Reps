@@ -284,7 +284,7 @@ Sub GetAdviceNoteData()
     
 End Sub
 Private Sub cmdBacthUpdate_Click()
-Dim lintRetval As Integer
+Dim lintRetVal As Integer
 Dim lintRetVal2 As Integer
 Dim lstrDespacthDate As Date
 
@@ -303,10 +303,10 @@ Dim lstrDespacthDate As Date
     End If
     
     If Trim(frmChildOptions.Code) <> "" Then
-        lintRetval = MsgBox("You are about to update all of the order shown" & vbCrLf & _
+        lintRetVal = MsgBox("You are about to update all of the order shown" & vbCrLf & _
             "in the grid with Order Status '" & Trim$(frmChildOptions.Code) & "'." & vbCrLf & vbCrLf & _
             "Click YES to proceed!", vbYesNo, gconstrTitlPrefix & "Batch Order Status Update")
-        If lintRetval = vbYes Then
+        If lintRetVal = vbYes Then
             lintRetVal2 = MsgBox("Would you also like to update the Despatch date?", vbYesNo, gconstrTitlPrefix & "Batch Order Status Update")
                 If lintRetVal2 = vbYes Then
                 
@@ -533,7 +533,7 @@ Dim llngOrderNum As Long
 Dim lstrRefundValue As String
 Dim lstrSQL As String
 Dim lstrName As String
-Dim lintRetval As Variant
+Dim lintRetVal As Variant
 Dim lstrLockingFlag As String
 Dim lstrOrderStatus As String
 
@@ -573,10 +573,10 @@ Dim lstrOrderStatus As String
             Exit Sub
         End If
         
-        lintRetval = MsgBox("Do you wish to create a Refund for " & vbCrLf & _
+        lintRetVal = MsgBox("Do you wish to create a Refund for " & vbCrLf & _
             "Customer Number M" & .lngCustNum & ", Order Number " & llngOrderNum & " ?", vbYesNo + vbDefaultButton1, gconstrTitlPrefix & "Refund")
         
-        If lintRetval = vbNo Then
+        If lintRetVal = vbNo Then
             Exit Sub
         End If
         
@@ -932,7 +932,7 @@ End Sub
 Sub NewRefund()
 Dim llngOrderNum As Long
 Dim llngCustNum As Long
-Dim lintRetval As Integer
+Dim lintRetVal As Integer
 
     On Error Resume Next
     llngCustNum = CLng(datAdviceNotes.Recordset("CustNum"))

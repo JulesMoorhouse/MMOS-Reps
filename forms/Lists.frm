@@ -171,15 +171,15 @@ Private Sub cmdClose_Click()
 End Sub
 
 Private Sub cmdDeploy_Click()
-Dim lintRetval As Integer
+Dim lintRetVal As Integer
 Dim lvarErrorStage
 
-    lintRetval = MsgBox("This process will update the Server and File location settings used by all users." & _
+    lintRetVal = MsgBox("This process will update the Server and File location settings used by all users." & _
         vbCrLf & vbCrLf & "The information used to make this change is stored only in the Live database.  Therefore" & _
         vbCrLf & "this process is independent of the testing environment." & vbCrLf & vbCrLf & _
         "If you wish to proceed click YES!", vbCritical + vbYesNo, gconstrTitlPrefix & "System Lists")
 
-    If lintRetval = vbYes Then
+    If lintRetVal = vbYes Then
     
         Decrypt gstrStatic.strTrueLiveServerPath & gconstrStaticLdr, gconEncryptStatic
         
@@ -228,7 +228,7 @@ End Sub
 Private Sub cmdPFSet_Click()
 Dim lstrPFStartConsign As String
 Dim lstrSQL As String
-Dim lintRetval As Integer
+Dim lintRetVal As Integer
     
     lstrPFStartConsign = GetListCodeDesc("PForce Consignment Range", "START")
     
@@ -246,17 +246,17 @@ Dim lintRetval As Integer
         Exit Sub
     End If
     
-    lintRetval = MsgBox("Would you like to reset the starting" & vbCrLf & _
+    lintRetVal = MsgBox("Would you like to reset the starting" & vbCrLf & _
         "Parcel Force consignment number to " & lstrPFStartConsign & " ?" & vbCrLf & vbCrLf & _
         "WARNING: This should only be done if Parcel Force have asked you to " & vbCrLf & _
         "change the consignment range! or, when the system goes live for the first time!", vbYesNo, gconstrTitlPrefix & "PF Reset")
-    If lintRetval = vbYes Then
+    If lintRetVal = vbYes Then
         lstrSQL = "UPDATE System SET System.[Value] = " & lstrPFStartConsign & " WHERE (((System.Item)='LastPFConsignNumIncr'));"
         gdatCentralDatabase.Execute lstrSQL
     End If
     
-    lintRetval = MsgBox("Would you like to reset the Batch number, this should only be done when the system goes live!", vbYesNo, gconstrTitlPrefix & "PF Reset")
-    If lintRetval = vbYes Then
+    lintRetVal = MsgBox("Would you like to reset the Batch number, this should only be done when the system goes live!", vbYesNo, gconstrTitlPrefix & "PF Reset")
+    If lintRetVal = vbYes Then
         lstrSQL = "UPDATE System SET System.[Value] = '0001' WHERE (((System.Item)='BatchIncr'));"
         gdatCentralDatabase.Execute lstrSQL
     End If

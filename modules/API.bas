@@ -877,13 +877,13 @@ End Function
 Function ListLoggedUsersOld(pstrDatabase As String) As String
 ReDim msString(1) As String
 Dim miLoop As Integer
-Dim lintRetval As Integer
+Dim lintRetVal As Integer
 Dim lstrUsers As String
 Dim lstrDBLockingFile As String
 
     lstrDBLockingFile = Left(pstrDatabase, Len(pstrDatabase) - 3) & "ldb"
     
-    lintRetval = LDBUser_GetUsers(msString, lstrDBLockingFile, &H2)
+    lintRetVal = LDBUser_GetUsers(msString, lstrDBLockingFile, &H2)
     
     For miLoop = LBound(msString) To UBound(msString)
         If Len(msString(miLoop)) = 0 Then

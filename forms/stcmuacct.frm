@@ -446,7 +446,7 @@ Dim lintArrInc As Integer
 End Sub
 
 Private Sub cmdRemove_Click(Index As Integer)
-Dim lintRetval
+Dim lintRetVal
 
     If lstCode(Index).ListIndex = -1 Then
         MsgBox "You must select an item to remove first!", , gconstrTitlPrefix & "No Item selected!"
@@ -454,8 +454,8 @@ Dim lintRetval
         
     End If
     
-    lintRetval = MsgBox("Do you wish to remove this item?", vbYesNo, gconstrTitlPrefix & "Item Selection")
-    If lintRetval = vbYes Then
+    lintRetVal = MsgBox("Do you wish to remove this item?", vbYesNo, gconstrTitlPrefix & "Item Selection")
+    If lintRetVal = vbYes Then
         lstCode(Index).RemoveItem lstCode(Index).ListIndex
         lstDescription(Index).RemoveItem lstDescription(Index).ListIndex
         lstSeqNum(Index).RemoveItem lstSeqNum(Index).ListIndex

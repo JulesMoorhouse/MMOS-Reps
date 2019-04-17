@@ -1781,7 +1781,7 @@ Dim lbooBatchEnable As Boolean
     
 End Sub
 Function StandardMenuOptions(pstrMenuItem As String, Optional plngIndex As Variant) As Boolean
-Dim lintRetval As Integer
+Dim lintRetVal As Integer
 Dim lintAlwaysMaximized As Integer
 
     StandardMenuOptions = False
@@ -1840,17 +1840,17 @@ Dim lintAlwaysMaximized As Integer
         End If
         SaveSetting gstrIniAppName, "UI", "AlwaysMaximized", lintAlwaysMaximized '
     Case mdiMain.mnuToolsMinder.Caption
-        lintRetval = MsgBox("Would you like to run Scandisk and Defrag?", vbYesNo, gconstrTitlPrefix & "Minder")
-            If lintRetval = vbYes Then
+        lintRetVal = MsgBox("Would you like to run Scandisk and Defrag?", vbYesNo, gconstrTitlPrefix & "Minder")
+            If lintRetVal = vbYes Then
                 gintForceAppClose = fcCompleteClose '
                 Unload mdiMain '
                 
                 RunNWait gstrStatic.strAppPath & "Minder.exe" & " APP"
             End If
     Case mdiMain.mnuToolsResetGrid.Caption
-        lintRetval = MsgBox("Do you wish to reset the grid(s) wisths for this screen?", _
+        lintRetVal = MsgBox("Do you wish to reset the grid(s) wisths for this screen?", _
             vbYesNo, gconstrTitlPrefix & "Reset Grid(s) Widths")
-        If lintRetval = vbYes Then
+        If lintRetVal = vbYes Then
             ResetGridLayout
             MsgBox "The Grid(s) Layout for this screen have been reset!", vbInformation, _
                 gconstrTitlPrefix & "Reset Grid(s) Layout"
