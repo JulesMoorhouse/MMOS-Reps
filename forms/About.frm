@@ -395,9 +395,9 @@ Dim lstrShowFeatures As String
     mdiMain.DrawButtonSet gstrButtonRoute
     
     If UCase$(App.ProductName) <> "LITE" Then
-        lblTrainingCard.Visible = False '
-        lstrShowFeatures = GetSetting(gstrIniAppName, "UI", "ShowFeatures") '
-        If IsBlank(lstrShowFeatures) Then '
+        lblTrainingCard.Visible = False
+        lstrShowFeatures = GetSetting(gstrIniAppName, "UI", "ShowFeatures")
+        If IsBlank(lstrShowFeatures) Then
             lstrShowFeatures = True
         ElseIf UCase$(lstrShowFeatures) <> "TRUE" Or UCase$(lstrShowFeatures) <> "FALSE" Then
             lstrShowFeatures = True

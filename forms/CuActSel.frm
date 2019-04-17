@@ -281,7 +281,7 @@ Private Sub cmdFind_Click(Index As Integer)
         lstrSearchType = "Postcode"
         lstrCriteria = txtPostcode
     End Select
-    'PaintFormMenu Me '
+    'PaintFormMenu Me
     
 End Sub
 
@@ -355,7 +355,7 @@ Const lconstrEvalUp = "You have created 50 Customer Accounts and have therefore 
             If lstAccounts.Selected(lintArrInc) Then
                 lintMsgRetVal = MsgBox("Select Customer Account : " & Chr(34) & lstrCustName(lintArrInc) & Chr(34) & " (M" & llngCustNumber(lintArrInc) & ") ?", vbYesNo + vbInformation, gconstrTitlPrefix & "Account Select")
                 If lintMsgRetVal = vbYes Then
-                    '
+                   
                     'If Trim$(lstrInUseBy(lintArrInc)) <> "" Then
                     '    'remind user AC is flagged in use
                     '    lintMsgRetVal = MsgBox("This Customer Account " & Chr(34) & lstrCustName(lintArrInc) & Chr(34) & " is in use by " & lstrInUseBy(lintArrInc) & vbCrLf & vbCrLf & _
@@ -372,7 +372,7 @@ Const lconstrEvalUp = "You have created 50 Customer Accounts and have therefore 
                             gstrCustomerAccount.lngCustNum = llngCustNumber(lintArrInc)
                             GetCustomerAccount gstrCustomerAccount.lngCustNum, True
                             Unload Me
-                            '
+                           
                             Set frmCustAcctSel = Nothing
                             
                             'mdiMain.DrawButtonSet mstrRoute ' 
@@ -383,7 +383,7 @@ Const lconstrEvalUp = "You have created 50 Customer Accounts and have therefore 
                                 frmOrdHistory.Route = Me.Route 'only has route order enquiry
                                 frmOrdHistory.Show
                             Case Else
-                                '
+                               
                                 gstrOrderEntryOrderStatus = ""
                                         
                                 Set gstrCurrentLoadedForm = frmAccount ' 
@@ -395,12 +395,12 @@ Const lconstrEvalUp = "You have created 50 Customer Accounts and have therefore 
 
                         End If
                     Else
-                        'PaintFormMenu Me '
+                        'PaintFormMenu Me
                         Exit Sub
                     End If
                     'End If
                 Else
-                    'PaintFormMenu Me '
+                    'PaintFormMenu Me
                     Exit Sub
                 End If
             End If
@@ -408,7 +408,7 @@ Const lconstrEvalUp = "You have created 50 Customer Accounts and have therefore 
     ElseIf lstAccounts.ListCount = lintArrInc Or lstAccounts.ListCount = 0 Then
         If mstrRoute = gconstrEntry Then
 
-            '
+           
             If UCase$(App.ProductName) = "LITE" Then
                 If CountCustAccounts >= 50 Then
                     MsgBox lconstrEvalUp, vbInformation, gconstrTitlPrefix & "Account Select"
@@ -416,7 +416,7 @@ Const lconstrEvalUp = "You have created 50 Customer Accounts and have therefore 
                 End If
             End If
                 
-            '
+           
             If UCase$(App.ProductName) = "LITE" Then
                 If cmdOverideNSelect.Enabled = False Then
                     MsgBox lconstrEvalUp, vbInformation, gconstrTitlPrefix & "Account Select"
@@ -427,18 +427,18 @@ Const lconstrEvalUp = "You have created 50 Customer Accounts and have therefore 
                 "Do you want to create a new account?", vbInformation + vbYesNo, gconstrTitlPrefix & "Account Select")
             If lintMsgRetVal = vbYes Then
                 'Create new account
-                '
+               
                 'lstrInUseByFlag = Trim$(gstrGenSysInfo.strUserName) & " " & Now()
                 lstrInUseByFlag = LockingPhaseGen(True)
                 
                 AddNewCustomerAccount lstrInUseByFlag
                 GetCustomerAccountNum lstrInUseByFlag
                 
-                '
+               
                 'frmAccount.Criteria = txtSearchCriteria
                 frmAccount.Criteria = lstrCriteria
                 
-                '
+               
                 'For lintArrInc2 = 0 To 3
                 '    If optSearchField(lintArrInc2).Value = True Then
                 '        frmAccount.CriteriaType = optSearchField(lintArrInc2).Tag
@@ -446,7 +446,7 @@ Const lconstrEvalUp = "You have created 50 Customer Accounts and have therefore 
                 'Next lintArrInc2
                 frmAccount.CriteriaType = lstrSearchType
                 
-                '
+               
                 gstrOrderEntryOrderStatus = ""
                 
                 'mdiMain.DrawButtonSet mstrRoute ' 
@@ -463,7 +463,7 @@ Const lconstrEvalUp = "You have created 50 Customer Accounts and have therefore 
         End If
     End If
     
-    'PaintFormMenu Me '
+    'PaintFormMenu Me
     
     ''txtSearchCriteria.SetFocus
 Exit Sub
@@ -472,7 +472,7 @@ Exitsub:
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
-    '
+   
     Select Case (KeyCode)
     Case vbKeyF1
         'Call cmdHelp_Click
@@ -490,7 +490,7 @@ Private Sub Form_Load()
 
     ShowBanner Me, Me.Route
     
-    '
+   
     If UCase$(App.ProductName) = "LITE" Then
         If CountCustAccounts >= 50 Then
             lblCustomerCount.Visible = True
@@ -498,7 +498,7 @@ Private Sub Form_Load()
         End If
     End If
     
-    SetupHelpFileReqs '
+    SetupHelpFileReqs
     
 End Sub
 
@@ -511,7 +511,7 @@ Dim llngRecCount As Long
     On Error GoTo ErrHandler
     If Trim$(pstrCiteria) = "" Then
         MsgBox "You must enter some criteria to search upon", , gconstrTitlPrefix & "Searching"
-        'PaintFormMenu Me '
+        'PaintFormMenu Me
         Exit Function
     End If
     
@@ -529,7 +529,7 @@ Dim llngRecCount As Long
         End If
         'sbStatusBar.Panels(1).Text = StatusText(8)
         ShowStatus 8 ' 
-        'Converted table names to constants '
+        'Converted table names to constants
         lstrSQL = "select * from " & gtblCustAccounts & " where "
 '        lstrSQL = lstrSQL & "CustNum like '*" & pstrCiteria & "*'"
         lstrSQL = lstrSQL & "CustNum = " & pstrCiteria & ""
@@ -553,7 +553,7 @@ Dim llngRecCount As Long
         ShowStatus 10 ' 
         ' lstrSQL = "Select surname, Initials, Add1, PostCode, AcctinUseByFlag " & _
             "from CustAccounts Where "
-        'Converted table names to constants '
+        'Converted table names to constants
          lstrSQL = "Select * " & _
             "from " & gtblCustAccounts & " Where "
         lstrSQL = lstrSQL & "Surname like '*" & pstrCiteria & "*'"
@@ -570,7 +570,7 @@ Dim llngRecCount As Long
     'ElseIf pobjOptionList(3).Value Then 'BPCS NUmber
         'sbStatusBar.Panels(1).Text = StatusText(18)
         ShowStatus 18 ' 
-        'Converted table names to constants '
+        'Converted table names to constants
         lstrSQL = "select * from " & gtblCustAccounts & " where "
         lstrSQL = lstrSQL & "BPCSCusNum like '*" & pstrCiteria & "*'"
         lstrSQL = lstrSQL & " order by surname, postcode"
@@ -672,7 +672,7 @@ Dim llngRecCount As Long
     If Trim$(pstrCiteria) = "" Then
         MsgBox "You must enter some criteria to search upon", , gconstrTitlPrefix & "Searching"
         ShowStatus 0
-        'PaintFormMenu Me '
+        'PaintFormMenu Me
         Exit Function
     End If
     
@@ -691,7 +691,7 @@ Dim llngRecCount As Long
     pobjList.Clear
     pobjList.BackColor = vbWindowBackground
     
-    'Converted table names to constants '
+    'Converted table names to constants
     Set ltabCustAccount = gdatCentralDatabase.OpenRecordset(gtblCustAccounts)
     'ltabCustAccount.Index = "CustAcctSel"
     ltabCustAccount.Index = "PrimaryKey"
@@ -699,7 +699,7 @@ Dim llngRecCount As Long
     With ltabCustAccount
         .Seek "=", pstrCiteria
         If .NoMatch Then
-            '
+           
             'MsgBox "No match"
             ltabCustAccount.Close
             Busy False, Me

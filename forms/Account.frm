@@ -613,7 +613,7 @@ Dim lstrRetAbort As String
     Case "BACK"
         Exit Sub
     Case "ABORT"
-        '
+       
     End Select
     
     lintRetVal = MsgBox("WARNING: By aborting this order no information will be saved!", vbYesNo + vbExclamation, gconstrTitlPrefix & "Abort Order")

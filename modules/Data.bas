@@ -2245,7 +2245,7 @@ Dim lbooDeductFromCreditCard As Boolean
                         lbooDeductFromCreditCard = True
                     End If
                 Else
-                    '
+                   
                 End If
             End If
             .strReconcilliation = SystemPrice(CCur(CCur(lstrTotalNonCardPayments) + CCur(lstrTotalCardPayments)) - CCur(gstrOrderTotal))

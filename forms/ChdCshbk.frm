@@ -270,32 +270,32 @@ End Sub
 Private Sub cmdFind_Click()
 Const lstrEndOfMessage = ", or select a different search method"
 
-    lstrExtraSQL = "where CustNum = " & gstrCustomerAccount.lngCustNum & " and " '
+    lstrExtraSQL = "where CustNum = " & gstrCustomerAccount.lngCustNum & " and "
 
     If optSearchField(0).Value = True Then  ' Cheque Number
         If (txtSearchCriteria) <> "" Then
-            lstrExtraSQL = "where ChequeNum = '" & Trim$(txtSearchCriteria) & "' and " '
+            lstrExtraSQL = "where ChequeNum = '" & Trim$(txtSearchCriteria) & "' and "
         End If
     ElseIf optSearchField(1).Value = True Then ' Customer Number
         If CLng(Val(txtSearchCriteria)) = 0 Then
             MsgBox "You must enter a Customer Number" & lstrEndOfMessage, , gconstrTitlPrefix & "Searching"
             Exit Sub
         Else
-            lstrExtraSQL = "where CustNum = " & CLng(txtSearchCriteria) & " and " '
+            lstrExtraSQL = "where CustNum = " & CLng(txtSearchCriteria) & " and "
         End If
     ElseIf optSearchField(2).Value = True Then ' Order Number
         If CLng(Val(txtSearchCriteria)) = 0 Then
             MsgBox "You must enter a Order Number" & lstrEndOfMessage, , gconstrTitlPrefix & "Searching"
             Exit Sub
         Else
-            lstrExtraSQL = "where CustNum = " & CLng(Val(txtSearchCriteria)) & " and " '
+            lstrExtraSQL = "where CustNum = " & CLng(Val(txtSearchCriteria)) & " and "
         End If
     ElseIf optSearchField(3).Value = True Then ' Customer name
         If Trim$(txtSearchCriteria) = "" Then
             MsgBox "You must enter a Customer Name" & lstrEndOfMessage, , gconstrTitlPrefix & "Searching"
             Exit Sub
         Else
-            lstrExtraSQL = "Where CardName = '" & Trim$(txtSearchCriteria) & "' and " '
+            lstrExtraSQL = "Where CardName = '" & Trim$(txtSearchCriteria) & "' and "
         End If
     End If
 

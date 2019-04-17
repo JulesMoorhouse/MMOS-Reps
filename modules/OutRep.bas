@@ -1434,7 +1434,7 @@ Dim llngRecCount As Long
             "((OrderNum)>=" & plngOrderNum & _
             " And (OrderNum)<=" & plngEndOrderNum & ")) "
     Case Else
-        '
+       
     End Select
         
     lstrSQL = lstrSQL & "order by OrderNum;" 'CreationDate;"
@@ -1559,7 +1559,7 @@ Dim lcurTotalCCPayment As Currency
         
         'Print #lintFileNum, "MIDLAND CARD SERV CHARGE-CARD CLAIMS My Company Plc. - Merchant No. 1234    as at " & Now(): lintLineNum = lintLineNum + 1
         'Print #lintFileNum, "CONTACT - Joe Bloggs    Telephone 0123 4567890": lintLineNum = lintLineNum + 1
-        '
+       
         Print #lintFileNum, Trim$(gstrReferenceInfo.strCreditCardClaimsHead1A) & Trim$(gstrReferenceInfo.strCreditCardClaimsHead1B) & "    as at " & Now(): lintLineNum = lintLineNum + 1
         Print #lintFileNum, gstrReferenceInfo.strCreditCardClaimsHead2A: lintLineNum = lintLineNum + 1
         Print #lintFileNum, " ": lintLineNum = lintLineNum + 1

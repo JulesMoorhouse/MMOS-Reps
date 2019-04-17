@@ -567,9 +567,9 @@ Dim lstrSQL As String
         gstrCustomerAccount.lngCustNum = mlngCustNum
         GetCustomerAccount mlngCustNum, False
         
-        AddAdviceNote lstrInUseByFlag, "R" '
+        AddAdviceNote lstrInUseByFlag, "R"
         GetAdviceOrderNum lstrInUseByFlag, .lngCustNum
-        UpdateOrderStatus "R", 0, "S", .lngOrderNum '
+        UpdateOrderStatus "R", 0, "S", .lngOrderNum
         
         'Add to new refund fields
         lstrSQL = "UPDATE " & gtblAdviceNotes & " SET RefundOrignNum = " & mlngOrderNum & ", " & _

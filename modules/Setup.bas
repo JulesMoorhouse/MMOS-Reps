@@ -56,11 +56,11 @@ Dim lstrSQL As String
 Dim llngRecCount As Long
 'Const lconstrStaticIni = "Static.ini"
     
-    If IsMissing(pbooConfig) Then '
+    If IsMissing(pbooConfig) Then
         pbooConfig = False
     End If
     
-    If pbooConfig = False Then '
+    If pbooConfig = False Then
         ShowStatus 41
     End If
     
@@ -82,9 +82,9 @@ Dim llngRecCount As Long
             'SetPrivateINI gstrStatic.strServerPath & gconstrStaticIni, lsnaLists.Fields("Listname"), _
                 lsnaLists.Fields("ListCode"), lsnaLists.Fields("Description")
             
-            If pbooConfig = False Then '
+            If pbooConfig = False Then
                 
-                '
+               
                 'SetPrivateINI gstrStatic.strTrueLiveServerPath & gconstrStaticIni, lsnaLists.Fields("Listname"), _
                     lsnaLists.Fields("ListCode"), lsnaLists.Fields("Description")
             End If
@@ -121,7 +121,7 @@ Dim llngRecCount As Long
                 If lsnaLists.Fields("ListCode") = "Prog3" Then .strPrograms(2).strProgram = lsnaLists.Fields("Description")
                 If lsnaLists.Fields("ListCode") = "Prog3Desc" Then .strPrograms(2).strDesc = lsnaLists.Fields("Description")
                 If lsnaLists.Fields("ListCode") = "Prog3Param" Then .strPrograms(2).strParam = lsnaLists.Fields("Description")
-                '
+               
                 If lsnaLists.Fields("ListCode") = "Prog4" Then .strPrograms(3).strProgram = lsnaLists.Fields("Description")
                 If lsnaLists.Fields("ListCode") = "Prog4Desc" Then .strPrograms(3).strDesc = lsnaLists.Fields("Description")
                 If lsnaLists.Fields("ListCode") = "Prog4Param" Then .strPrograms(3).strParam = lsnaLists.Fields("Description")
@@ -142,7 +142,7 @@ Dim llngRecCount As Long
         'pobjList.AddItem ""
     End With
     
-    If pbooConfig = False Then '
+    If pbooConfig = False Then
         If llngRecCount <> 0 Then
             MsgBox "Deployment completed OK!", , gconstrTitlPrefix & "Static Deployment"
         End If
@@ -307,8 +307,8 @@ Dim lsnaLists As Recordset
             pobjTextBox = lsnaLists.Fields("Description")
             pobjLabel = Trim$(.strTopic) & " :"
             pobjTextBox.MaxLength = 50
-            pobjTextBox.Visible = True '
-            pobjLabel.Visible = True '
+            pobjTextBox.Visible = True
+            pobjLabel.Visible = True
         End If
     End With
     lsnaLists.Close
@@ -417,7 +417,7 @@ Dim lvarErrorStage
             
             'UpdateLoader 
             'Unload Me
-            '
+           
             Unhook
             End
         End With
@@ -600,7 +600,7 @@ Dim dbdest As Database
 Dim rsSource As Recordset
 Dim rsDest As Recordset
 Dim lintArrInc As Integer
-'Added '
+'Added
 
     On Error GoTo CopyErr
      

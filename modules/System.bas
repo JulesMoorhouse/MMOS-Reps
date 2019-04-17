@@ -7,8 +7,8 @@ Global gdatCentralDatabase      As Database
 Global gdatLocalDatabase        As Database
 Global gdatStockImportDB        As Database
 
-Global gwrkODBC As Workspace '
-Global gwrkJet As Workspace '
+Global gwrkODBC As Workspace
+Global gwrkJet As Workspace
     
 Global Const gconstrCashbookSpecificCustomer = "SPECIFICCUSTOMER"
 
@@ -74,7 +74,7 @@ Function GetUser(pstrUserName As String, Optional pbooNoStatus As Variant) As Bo
 Dim lsnaLists As Recordset
 Dim lstrSQL As String
 Dim llngRecCount As Long
-'Converted table names to constants '
+'Converted table names to constants
 
     If IsMissing(pbooNoStatus) Then
         pbooNoStatus = False
@@ -132,9 +132,9 @@ Public Function strUnQuoteString(ByVal strQuotedString As String)
 
     If Mid$(strQuotedString, 1, 1) = gstrQUOTE Then
         If Right$(strQuotedString, 1) = gstrQUOTE Then
-            '
+           
             ' It's quoted.  Get rid of the quotes.
-            '
+           
             strQuotedString = Mid$(strQuotedString, 2, Len(strQuotedString) - 2)
         End If
     End If
@@ -150,7 +150,7 @@ Dim lstrProgToFind As String
     Case "IEXPLORE"
         lstrProgToFind = "C:\Program Files\Internet Explorer\IEXPLORE.EXE"
     Case "QARAPID"
-        If gstrSystemRoute = srStandardRoute Then pstrProg = "AddressProg" '
+        If gstrSystemRoute = srStandardRoute Then pstrProg = "AddressProg"
         lstrProgToFind = "C:\QADDRESS\APPS\Qarapid.EXE"
     End Select
     
@@ -181,7 +181,7 @@ Dim start As STARTUPINFO
 Dim intReturnValue As Integer
 
 
-    If gstrSystemRoute = srStandardRoute Then  '
+    If gstrSystemRoute = srStandardRoute Then 
         lstrQAExe = FindProgram("AddressProg")
     ElseIf gstrSystemRoute = srCompanyRoute Or gstrSystemRoute = srCompanyDebugRoute Then
         lstrQAExe = FindProgram("QARAPID")
@@ -198,7 +198,7 @@ Dim intReturnValue As Integer
     
     '-ini "Configuration file name"
     '-section "Section name"
-    If gstrSystemRoute = srStandardRoute Then  '
+    If gstrSystemRoute = srStandardRoute Then 
         FileCopy gstrStatic.strServerPath & "QAMMOS.ini", Justpath(lstrQAExe) & "QAMMOS.INI"
         lstrParams = " -ini " & Justpath(lstrQAExe) & "QAMMOS.ini" & " -section MMOS"
     ElseIf gstrSystemRoute = srCompanyRoute Or gstrSystemRoute = srCompanyDebugRoute Then
@@ -449,7 +449,7 @@ Dim lstrMessage As String
         If Len(pstrField) < 1 Then
             lstrMessage = lstrMessage & vbCrLf & "Line " & pstrLineNum & " " & vbTab & pstrFieldName & " is not long enough."
         Else
-            If Left$(pstrField, 1) <> Chr(34) And Right$(pstrField, 1) <> Chr(34) Then '
+            If Left$(pstrField, 1) <> Chr(34) And Right$(pstrField, 1) <> Chr(34) Then
                 lstrMessage = lstrMessage & vbCrLf & "Line " & pstrLineNum & " " & vbTab & pstrFieldName & " is not a character field."
             ElseIf Len(strUnQuoteString(pstrField)) > pintMaxlength Then
                 lstrMessage = lstrMessage & vbCrLf & "Line " & pstrLineNum & " " & vbTab & pstrFieldName & " is too long."

@@ -291,7 +291,7 @@ Dim lstrLockingFlag As String
         GetRemarkNum lstrLockingFlag, gstrConsignmentNote
         gstrAdviceNoteOrder.lngConsignRemarkNum = gstrConsignmentNote.lngRemarkNumber
         UpdateRemarkAdviceID gstrAdviceNoteOrder.lngOrderNum, gstrAdviceNoteOrder.lngConsignRemarkNum, "Consignment"
-        ToggleRemarkInUseBy gstrConsignmentNote.lngRemarkNumber, False '
+        ToggleRemarkInUseBy gstrConsignmentNote.lngRemarkNumber, False
         frmChildNote.NoteText = gstrConsignmentNote.strText
         frmChildNote.NoteType = "Consignment Note Comments"
         Load frmChildNote

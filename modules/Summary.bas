@@ -159,7 +159,7 @@ Const lconstrMsg = "Processing summary item "
         On Error GoTo ErrHandler
                 
         With mstrSummaryArray(lintArrInc)
-            If .strSQL = "" Then Exit Function '
+            If .strSQL = "" Then Exit Function
             Set lsnaQuery = gdatCentralDatabase.OpenRecordset(.strSQL, dbOpenSnapshot)
             
             If Not (lsnaQuery.BOF And lsnaQuery.EOF) Then

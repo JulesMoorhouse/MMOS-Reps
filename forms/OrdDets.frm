@@ -987,7 +987,7 @@ Sub GetLocalFields()
         
         On Error Resume Next
         If Year(Trim$(.datCardStartDate)) = "1899" Then
-            '
+           
         Else
             cboYearStart = Year(Trim$(.datCardStartDate))
         End If

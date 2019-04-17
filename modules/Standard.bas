@@ -1,7 +1,7 @@
 Attribute VB_Name = "modStandard"
 Option Explicit
 
-'Moved from modReports '
+'Moved from modReports
 Type GeneralTrackNUpdate
     lngOrderNum As Long
 End Type
@@ -85,7 +85,7 @@ Public Enum SystemRoutes
 End Enum
 Global gstrSystemRoute As SystemRoutes
 
-Global gbooSQLServerInUse As Boolean '
+Global gbooSQLServerInUse As Boolean
 Type DBPasswords
     strLocalDBPasswordString    As String
     strCentralDBPasswordString  As String
@@ -203,7 +203,7 @@ Sub WriteBuffer(pstring As String)
         .strPrograms(2).strProgram = ReturnNthStr(pstring, 34, Chr(182))
         .strPrograms(2).strParam = ReturnNthStr(pstring, 35, Chr(182))
         .strPrograms(2).strDesc = ReturnNthStr(pstring, 36, Chr(182))
-        .strUnlockCode = ReturnNthStr(pstring, 37, Chr(182)) '
+        .strUnlockCode = ReturnNthStr(pstring, 37, Chr(182))
     End With
    
 End Sub
@@ -327,7 +327,7 @@ Dim lstrIndex As String
                     If .Index <> "" Then
                         lstrIndex = "(" & .Index & ")"
                     End If
-                    '
+                   
                     SetPrivateINI gconScreenIni, pobjForm.Name, .Name & lstrIndex, _
                     .Left & "," & .Top & "," & .Width & "," & .Height
 
@@ -507,7 +507,7 @@ Dim lstrOriginal As String
 
 End Function
 Function Pad(pobjForm As Form, plngLength As Long, pstrString As String) As String
-'Moved from modSetup for use in Lite version '
+'Moved from modSetup for use in Lite version
 Dim llngTextWidth As Long
 Dim lstrPadding As String
     

@@ -6,9 +6,9 @@ Sub PrintObjAdviceNotesGeneral(pdatStartDate As Date, pdatEndDate As Date, pstrP
 Dim lsnaLists As Recordset
 Dim lstrSQL As String
 Dim llngRecCount As Long
-Dim lstrAdviceNoteType As String '
-Dim lstrOrderStatus As String '
-'Converted table names to constants '
+Dim lstrAdviceNoteType As String
+Dim lstrOrderStatus As String
+'Converted table names to constants
 'Also removed unnecessary table. references
 
     On Error GoTo ErrHandler
@@ -31,33 +31,33 @@ Dim lstrOrderStatus As String '
     Case "A" 'Awaiting
         lstrSQL = lstrSQL & " and OrderStatus = 'A' "
         lstrSQL = lstrSQL & "and OrderNum <> CLng(0) and OrderNum <> null "
-        lstrAdviceNoteType = "" '
+        lstrAdviceNoteType = ""
     Case "P" 'Printed
         lstrSQL = lstrSQL & " and OrderStatus = 'P' "
         lstrSQL = lstrSQL & "and OrderNum <> CLng(0) and OrderNum <> null "
-        lstrAdviceNoteType = "" '
+        lstrAdviceNoteType = ""
     Case "S" 'Specific
         lstrSQL = lstrSQL & " Ordernum = " & plngOrderNum & " "
         lstrSQL = lstrSQL & "and OrderNum <> CLng(0) and OrderNum <> null "
-        If Not IsMissing(pstrSpecificOrderStatus) Then '
-            If pstrSpecificOrderStatus = "R" Then '
-                lstrAdviceNoteType = "REFUND" '
-            End If '
-        End If '
+        If Not IsMissing(pstrSpecificOrderStatus) Then
+            If pstrSpecificOrderStatus = "R" Then
+                lstrAdviceNoteType = "REFUND"
+            End If
+        End If
     Case "R" 'Range print
         'Added 
         lstrSQL = lstrSQL & " (((OrderStatus)='A') AND " & _
             "((OrderNum)>=" & plngOrderNum & _
             " And (OrderNum)<=" & plngEndOrderNum & ")) "
-        lstrAdviceNoteType = "" '
+        lstrAdviceNoteType = ""
     Case "O" 'Specific Order Status
         lstrSQL = lstrSQL & " and OrderStatus = '" & pstrSpecificOrderStatus & "' "
         lstrSQL = lstrSQL & "and OrderNum <> CLng(0) and OrderNum <> null "
-        If pstrSpecificOrderStatus = "R" Then  '
-            lstrAdviceNoteType = "REFUND" '
+        If pstrSpecificOrderStatus = "R" Then 
+            lstrAdviceNoteType = "REFUND"
         End If
     Case Else
-        '
+       
     End Select
         
     lstrSQL = lstrSQL & "order by OrderNum;" 'CreationDate;"
@@ -75,7 +75,7 @@ Dim lstrOrderStatus As String '
         Do Until .EOF
             llngRecCount = llngRecCount + 1
             
-            If pstrParamater <> "S" Then '
+            If pstrParamater <> "S" Then
                 ClearAdviceNote
                 ClearCustomerAcount
                 ClearGen
@@ -83,12 +83,12 @@ Dim lstrOrderStatus As String '
             
             GetAdviceNote .Fields("CustNum"), .Fields("OrderNum")
             
-            If pstrParamater = "S" And IsMissing(pstrSpecificOrderStatus) Then '
-                lstrOrderStatus = GetAdviceOrderStatus(.Fields("CustNum"), .Fields("OrderNum")) '
-                If lstrOrderStatus = "R" Then '
-                    lstrAdviceNoteType = "REFUND" '
-                End If '
-            End If '
+            If pstrParamater = "S" And IsMissing(pstrSpecificOrderStatus) Then
+                lstrOrderStatus = GetAdviceOrderStatus(.Fields("CustNum"), .Fields("OrderNum"))
+                If lstrOrderStatus = "R" Then
+                    lstrAdviceNoteType = "REFUND"
+                End If
+            End If
             
             If gstrAdviceNoteOrder.lngAdviceRemarkNum <> 0 Then
                 GetRemark gstrAdviceNoteOrder.lngAdviceRemarkNum, gstrInternalNote
@@ -98,11 +98,11 @@ Dim lstrOrderStatus As String '
             End If
             
             'PrintObjAdviceInvoice "CENTRAL", "", lintFreeFile
-            PrintObjAdviceInvoice "CENTRAL", lstrAdviceNoteType, lintFreeFile '
+            PrintObjAdviceInvoice "CENTRAL", lstrAdviceNoteType, lintFreeFile
             
             glngLastOrderPrintedInThisRun = .Fields("OrderNum")
             
-            If glngItemsWouldLikeToPrint > 0 Then '
+            If glngItemsWouldLikeToPrint > 0 Then
                 If glngItemsWouldLikeToPrint = llngRecCount Then
                     lsnaLists.Close
                     Close #lintFreeFile ' Added 19/10/01
@@ -161,7 +161,7 @@ Const lconintNumberOflineinHeader = 5: Const lconintNumberOflineinMiddle = 13: C
     
     If pstrProductLines(0).booLightParcel = False Then
 '        UpdateAdviceParcelExtras gstrAdviceNoteOrder.lngCustNum, gstrAdviceNoteOrder.lngOrderNum, UBound(pstrProductLines) + 1, glngGrossWeight
-        '
+       
         UpdateAdviceParcelExtras gstrAdviceNoteOrder.lngCustNum, _
             gstrAdviceNoteOrder.lngOrderNum, CInt(glngTotalParcel), glngGrossWeight
     End If
@@ -211,7 +211,7 @@ End Sub
 Function PrintObjAdviceInvoiceHeader(pstrAdviceType As String, ByRef lstrCourier As String, _
     ByRef lstrPFServiceInd As String, ByRef pstrProductLines() As OrderDetail, lintArrInc2 As Integer) As String
 
-    '
+   
     gstrReportData.strHeaders(lconCompName).strValue = gstrReferenceInfo.strCompanyName
     gstrReportData.strHeaders(lconCompAdd1).strValue = gstrReferenceInfo.strCompanyAddLine1
     gstrReportData.strHeaders(lconCompAdd2).strValue = gstrReferenceInfo.strCompanyAddLine2
@@ -326,7 +326,7 @@ Dim lstrPaymentType2 As String
         
         lstrPaymentType2 = GetListCodeDesc("Payment Method", .strPaymentType2) & " " & AdvicePrice(.strPayment2) & vbCrLf '5
         
-        '
+       
         gstrReportData.strFooters(lconTitleTaxStndPrcnt).strValue = gstrReferenceInfo.strVATRate175 & "%"
         
         gstrReportData.strFooters(lconTitleTaxStndGoodsNPP).strValue = AdvicePrice(PriceVal(pstrUnitTotal))
@@ -341,10 +341,10 @@ Dim lstrPaymentType2 As String
             gstrReportData.strFooters(lconPay2).strValue = ""
         End If
         
-        If gstrReferenceInfo.booDonationAvail = True Then '
+        If gstrReferenceInfo.booDonationAvail = True Then
             gstrReportData.strFooters(lconDonation).strValue = AdvicePrice(.strDonation)
         Else
-            gstrReportData.strFooters(lconDonation).strValue = vbTab '
+            gstrReportData.strFooters(lconDonation).strValue = vbTab
         End If
         
         gstrReportData.strFooters(lconTotal).strValue = AdvicePrice(.strTotalIncVat)
@@ -400,7 +400,7 @@ Dim lsnaLists As Recordset
 Dim lstrSQL As String
 Dim llngRecCount As Long
 'Dim lintFileNum As Integer
-'Converted table names to constants '
+'Converted table names to constants
 'Also removed unnecessary table. references
     
     'This function works by specifiy the day the cheques were printed!
@@ -413,7 +413,7 @@ Dim llngRecCount As Long
         "WHERE (((Amount)<>0) AND " & _
         "((Format$([PrintedDate],'dd/mm/yy'))=CDate('" & Format$(pdatChequeprintDate, "dd/mm/yy") & "')) " & _
         "AND ((Reason)<>'UNDERPAY')) ORDER BY OrderNum;"
-    '
+   
     lstrSQL = "SELECT CustNum, OrderNum, " & _
         "Format$([ChequePrintedDate],'dd/mm/yy') AS Expr1 From " & gtblAdviceNotes & " " & _
         "WHERE (((Underpayment)<>0) AND " & _
@@ -483,7 +483,7 @@ Const lconHeaderLines = 11: Const lconFooterLines = 5
 Dim lintNumberOfDetailLinesAllowed As Integer
 Dim lintDetailInc As Integer
 Dim llngNumConsignmentThisPage As Long
-'Converted table names to constants '
+'Converted table names to constants
 
     ShowStatus 98
     
@@ -581,7 +581,7 @@ Function PrintObjPForceManifestHeader(plngPageNum As Long) As Long
 Dim llngLineNum As Long
     
     With gstrReportData
-        '
+       
         .strHeaders(lconTitlCompAddressName).strValue = UCase$(Trim$(gstrReferenceInfo.strCompanyName)) & ", "
         .strHeaders(lconTitlCompAddress1).strValue = UCase$(Trim$(gstrReferenceInfo.strCompanyAddLine1 & ","))
         .strHeaders(lconTitlCompAddress2).strValue = UCase$(Trim$(gstrReferenceInfo.strCompanyAddLine2 & ", "))
@@ -643,8 +643,8 @@ Dim lstrThousands As String
 Dim lstrHundreds As String
 Dim lstrTens As String
 Dim lstrUnits As String
-Dim lstrAmount As String '
-'Converted table names to constants '
+Dim lstrAmount As String
+'Converted table names to constants
 'Also removed unnecessary table. references
 
     ReDim Preserve glngChequeOrderNumPrinted(0)
@@ -659,19 +659,19 @@ Dim lstrAmount As String '
         "((PrintedDate) Is Null) AND " & _
         "((Reason)<>'UNDERPAY')) " & _
         "ORDER BY OrderNum;"
-    '
+   
     'lstrSQL = "SELECT TotalIncVat AS Amount, CardName AS Name, OrderNum, " & _
         "ChequePrintedDate AS PrintedDate FROM " & gtblAdviceNotes & " WHERE (Underpayment<>0 AND" & _
         "ChequePrintedDate=0 AND RefundReason<>'UNDERPAY' AND OrderType='Q') OR " & _
         "(Underpayment<>0 AND ChequePrintedDate Is Null AND RefundReason<>'UNDERPAY' " & _
         "AND OrderType='Q') ORDER BY OrderNum;"
-    '
+   
     'lstrSQL = "SELECT TotalIncVat AS Amount, CardName AS Name, OrderNum, " & _
         "ChequePrintedDate AS PrintedDate FROM " & gtblAdviceNotes & " WHERE (Underpayment<>0 AND " & _
         "ChequePrintedDate=0 AND RefundReason<>'UNDERPAY' AND OrderType='Q') OR " & _
         "(Underpayment<>0 AND ChequePrintedDate Is Null AND RefundReason<>'UNDERPAY' " & _
         "AND OrderType='Q') ORDER BY OrderNum;"
-    '
+   
     lstrSQL = "SELECT TotalIncVat AS Amount, CardName AS Name, OrderNum, " & _
         "ChequePrintedDate AS PrintedDate FROM " & gtblAdviceNotes & " WHERE ( " & _
         "ChequePrintedDate=0 AND RefundReason<>'UNDERPAY' AND OrderType='Q') OR " & _
@@ -713,12 +713,12 @@ Dim lstrAmount As String '
             'Print #lintFileNum, " " & Spacer(.Fields("OrderNum"), 8) & Spacer(Trim$(.Fields("Name")), 50) & Format(.Fields("Amount"), "0.00")
             gstrReportData.strHeaders(lconChqOrderNum).strValue = .Fields("OrderNum")
             gstrReportData.strHeaders(lconChqName).strValue = Trim$(.Fields("Name"))
-            lstrAmount = .Fields("Amount") & "" '
-            If Left$(lstrAmount, 1) = "-" Then '
-                lstrAmount = Right$(lstrAmount, Len(lstrAmount & "") - 1) '
+            lstrAmount = .Fields("Amount") & ""
+            If Left$(lstrAmount, 1) = "-" Then
+                lstrAmount = Right$(lstrAmount, Len(lstrAmount & "") - 1)
             End If
             'gstrReportData.strHeaders(lconChqAmount).strValue = Format(.Fields("Amount"), "0.00")
-            gstrReportData.strHeaders(lconChqAmount).strValue = Format(lstrAmount, "0.00") '
+            gstrReportData.strHeaders(lconChqAmount).strValue = Format(lstrAmount, "0.00")
             'Print #lintFileNum, ""
             'Print #lintFileNum, ""
             'Print #lintFileNum, ""
@@ -730,7 +730,7 @@ Dim lstrAmount As String '
             Else
                 lcurPounds = CCur(.Fields("Amount"))
             End If
-            If Left$(lcurPounds, 1) = "-" Then '
+            If Left$(lcurPounds, 1) = "-" Then
                 lcurPounds = Right$(lcurPounds, Len(lcurPounds & "") - 1)
             End If
             If lcurPounds = 0 Then
@@ -850,7 +850,7 @@ Const lconCatSpacer As Integer = 11
 Const lconBinSpacer As Integer = 15
 Const lconQtySpacer As Integer = 9
 Const lconProdSpacer As Integer = 37
-'Converted table names to constants '
+'Converted table names to constants
 
     PrintObjBatchPickings = True
  
@@ -967,13 +967,13 @@ Dim lintLineNum As Integer
 Dim lintPageNum As Integer
 Dim lcurTotalCCPayment As Currency
 Dim lstrCardNum As String
-'Converted table names to constants '
+'Converted table names to constants
 
-    If IsMissing(pbooRefundClaims) Then '
+    If IsMissing(pbooRefundClaims) Then
         pbooRefundClaims = False
     End If
     
-    '
+   
     gstrReportData.strHeaders(lconCCCHead1A).strValue = Trim$(gstrReferenceInfo.strCreditCardClaimsHead1A)
     gstrReportData.strHeaders(lconCCCHead1B).strValue = Trim$(gstrReferenceInfo.strCreditCardClaimsHead1B)
     gstrReportData.strHeaders(lconCCCHead2A).strValue = Trim$(gstrReferenceInfo.strCreditCardClaimsHead2A)
@@ -1006,8 +1006,8 @@ Dim lstrCardNum As String
         "(AdviceNotes.OrderStatus)='E') AND ((Trim$([AdviceNotes].[PaymentType2]))='C')) " & _
         "ORDER BY AdviceNotes.OrderNum;"
 
-    If pbooRefundClaims = False Then '
-        '
+    If pbooRefundClaims = False Then
+       
         lstrSQL = "SELECT CardNumber, TotalIncVat, AuthorisationCode, OrderNum, CreationDate, DespatchDate, " & _
             "OrderType, Payment, PaymentType2, Payment2, CallerSalutation, CallerInitials, CallerSurname, " & _
             "AdviceAdd1, AdviceAdd2, AdviceAdd3, AdviceAdd4, AdviceAdd5, AdvicePostcode, BankRepPrintDate, " & _
@@ -1018,7 +1018,7 @@ Dim lstrCardNum As String
             "Or (OrderStatus)='E') AND ((Trim$([PaymentType2]))='C') AND ((CardType)<>'SWITCH')) " & _
             "ORDER BY OrderNum;"
     Else
-        '
+       
         lstrSQL = "SELECT CardNumber, TotalIncVat, AuthorisationCode, OrderNum, CreationDate, " & _
             "DespatchDate, OrderType, Payment, PaymentType2, Payment2, CallerSalutation, " & _
             "CallerInitials, CallerSurname, AdviceAdd1, AdviceAdd2, AdviceAdd3, AdviceAdd4, " & _
@@ -1058,8 +1058,8 @@ Dim lstrCardNum As String
                 lcurTotalCCPayment = CCur(.Fields("Payment2"))
             End If
             
-            If pbooRefundClaims = True Then '
-                lcurTotalCCPayment = CCur(.Fields("Reconcilliation")) '
+            If pbooRefundClaims = True Then
+                lcurTotalCCPayment = CCur(.Fields("Reconcilliation"))
             End If
             
             lintLineNum = lintLineNum + 1
@@ -1098,7 +1098,7 @@ Dim lstrCardNum As String
             lintLineNum = lintLineNum + 1
             lcurPageTotal = lcurPageTotal + CCur(lcurTotalCCPayment)
             
-            '
+           
             lcurTotal = lcurTotal + CCur(lcurTotalCCPayment)
              
             If lintLineNum = ((lintPageNum * gintNumberOfLinesAPage) - 8) Then
@@ -1116,7 +1116,7 @@ Dim lstrCardNum As String
                 
             End If
                                 
-            '
+           
             'lcurTotal = lcurTotal + CCur(lcurTotalCCPayment)
             
             If llngRecCount = 1 Then
@@ -1136,7 +1136,7 @@ Dim lstrCardNum As String
         
         lintLineNum = lintLineNum + 3
         
-        '
+       
         'lcurTotal = lcurTotal + CCur(lcurTotalCCPayment)
         
         gstrReportData.strFooters(lconCCCGrandTotal).strValue = Format$(lcurTotal, "0.00"):

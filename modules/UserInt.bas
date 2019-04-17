@@ -215,14 +215,14 @@ Global Const mnuMaintGoStockMan = "Stock Management"
 Global Const mnuMaintGoSysOps = "System Options"
 Global Const mnuMaintGoSysMain = "System Maintenance"
                 
-'Global gbooForceAppClose As Boolean '
+'Global gbooForceAppClose As Boolean
 Enum ForceClose
     fcDontClose = 0
     fcCompleteClose = 1
     fcCloseKeepDB = 2
 End Enum
 
-Global gintForceAppClose As ForceClose '
+Global gintForceAppClose As ForceClose
 Global Const mnuFileHistoryOptionModify = "&Modify This Order"
 Global Const mnuFileHistoryOptionModifyItem = 0
 Global Const mnuFileHistoryOptionHistory = "Orders &History"
@@ -298,7 +298,7 @@ Global Const gconstrGenralReporting = "GENREPS"
 Global Const gconstrMarketingData = "MARKETDAT"
 Global Const gconstrAgentReporting = "AGENTREP"
 Global Const gconstrSummaryInfo = "SUMINFO"
-Global Const gconstrDuplicateHandling = "DUPHAND" '
+Global Const gconstrDuplicateHandling = "DUPHAND"
 
 Global Const gconstrThermalPrintRun = "THERMALRUN"
 Global Const gconstrConsignmentNorm = "CONSIGNNORM"
@@ -403,7 +403,7 @@ Dim llngLeftPos As Long
     On Error Resume Next
     Dim lintStyle As Integer
     
-    If glngNumOfColours < 257 Then '
+    If glngNumOfColours < 257 Then
          lintStyle = 2
     Else
         lintStyle = 0
@@ -516,7 +516,7 @@ Dim lstrPicBarVisible As String
         pbooSlack = False
     End If
     
-    gintForceAppClose = fcDontClose '
+    gintForceAppClose = fcDontClose
     
     gconUITopPos = gconUIButtonTopPosDefault
     gstrButtonRoute = gconstrMainMenu
@@ -550,8 +550,8 @@ Dim lstrPicBarVisible As String
     
     Set gstrCurrentLoadedForm = pobjMdiChildStart
     
-    If UCase$(App.ProductName) <> "WAREHOUSE" Then '
-        lstrPicBarVisible = GetSetting(gstrIniAppName, "UI", "PicBarVisible") & "" '
+    If UCase$(App.ProductName) <> "WAREHOUSE" Then
+        lstrPicBarVisible = GetSetting(gstrIniAppName, "UI", "PicBarVisible") & ""
         If IsBlank(lstrPicBarVisible) Then lstrPicBarVisible = True
         If lstrPicBarVisible <> True And lstrPicBarVisible <> False Then
             mdiMain.picListBar.Visible = True
@@ -560,7 +560,7 @@ Dim lstrPicBarVisible As String
             mdiMain.picListBar.Visible = lstrPicBarVisible
         End If
         
-        lintWindowState = Val(GetSetting(gstrIniAppName, "UI", "AlwaysMaximized")) '
+        lintWindowState = Val(GetSetting(gstrIniAppName, "UI", "AlwaysMaximized"))
         If lintWindowState <> vbMaximized Then
             lintWindowState = vbNormal
             SaveSetting gstrIniAppName, "UI", "AlwaysMaximized", lintWindowState
@@ -1129,8 +1129,8 @@ Sub SetSelected(pfrmForm As Form)
 End Sub
 Function MCLDebugChoices() As String
 Dim lintDebugVersion As Variant
-Dim lstrAppHelpFile As String '
-Dim lstrDepugAppHelpFilePath As String '
+Dim lstrAppHelpFile As String
+Dim lstrDepugAppHelpFilePath As String
 
     If DebugVersion Then
         lintDebugVersion = MsgBox("Mindwarp (Standard ver) " & vbTab & "= Abort" & vbCrLf & _
@@ -1203,8 +1203,8 @@ Dim lstrLog As String
         CopyMemoryFromMinMaxInfo lParam, MinMax, Len(MinMax)
 
         WindowProc = DefWindowProc(hw, uMsg, wParam, lParam)
-    Case WM_TCARD '
-        TrainingCards wParam, lParam '
+    Case WM_TCARD
+        TrainingCards wParam, lParam
         WindowProc = CallWindowProc(glngPrevWndProc, hw, uMsg, wParam, lParam)
     Case Else
         'pass other instructions back to UI
@@ -1407,7 +1407,7 @@ Dim lstrErrTitleBuild As String
     On Error Resume Next
     For lintArrInc = 0 To UBound(pstrTableAndFields)
         With pstrTableAndFields(lintArrInc)
-            If Trim$(.strSourceTable) <> "" Then '
+            If Trim$(.strSourceTable) <> "" Then
                 If lstrLastTable <> .strSourceTable Then
                     Set rstTables = datDatabase.OpenRecordset(.strSourceTable)
                     lstrLastTable = .strSourceTable
@@ -1473,7 +1473,7 @@ Dim lstrErrTitleBuild As String
             Pad(pobjForm, 40, "=============") & vbCrLf
         
         lstrErrBuild = lstrErrTitleBuild & lstrErrBuild
-        If pvarParam <> "LITE" Then '
+        If pvarParam <> "LITE" Then
         MsgBox lstrErrBuild & vbCrLf & vbCrLf & "Your database structure has the above Anomalies, please report them!" & vbCrLf & _
             "Please press ALT & 'Print Screen' and paste into Paintbrush to make a copy of this message!", , gconstrTitlPrefix & "DB Check"
         Else
@@ -1490,7 +1490,7 @@ Dim lstrErrTitleBuild As String
             End If
         End If
     Else
-        If pvarParam <> "LITE" Then '
+        If pvarParam <> "LITE" Then
             MsgBox "Your database structure matches the requirements of this program version!", vbInformation, gconstrTitlPrefix & "DB Check"
         End If
     End If
@@ -1838,12 +1838,12 @@ Dim lintAlwaysMaximized As Integer
         Else
             lintAlwaysMaximized = vbNormal
         End If
-        SaveSetting gstrIniAppName, "UI", "AlwaysMaximized", lintAlwaysMaximized '
+        SaveSetting gstrIniAppName, "UI", "AlwaysMaximized", lintAlwaysMaximized
     Case mdiMain.mnuToolsMinder.Caption
         lintRetVal = MsgBox("Would you like to run Scandisk and Defrag?", vbYesNo, gconstrTitlPrefix & "Minder")
             If lintRetVal = vbYes Then
-                gintForceAppClose = fcCompleteClose '
-                Unload mdiMain '
+                gintForceAppClose = fcCompleteClose
+                Unload mdiMain
                 
                 RunNWait gstrStatic.strAppPath & "Minder.exe" & " APP"
             End If
