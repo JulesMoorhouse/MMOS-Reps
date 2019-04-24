@@ -1594,54 +1594,56 @@ Dim lbooBatchEnable As Boolean
     Select Case UCase$(App.ProductName)
     Case "LITE", "CLIENT"
         lbooBatchEnable = False
-        If mdiMain.ActiveForm.Name = "frmAbout" Then
-            lbooBatchEnable = True
-            Select Case gstrGenSysInfo.lngUserLevel
-            Case Is < 20 'Distribution
-                mdiMain.mnuGoItem1.Caption = mnuClientGoPacking
-            Case Is < 30 'Order Entry
-                mdiMain.mnuGoItem1.Visible = True
-                mdiMain.mnuGoItem1.Caption = mnuClientGoOrderEntry
-                mdiMain.mnuGoItem2.Visible = True
-                mdiMain.mnuGoItem2.Caption = mnuClientGoEnquiry
-                mdiMain.mnuGoItem3.Visible = True
-                mdiMain.mnuGoItem3.Caption = mnuClientGoAcctMaint
-                mdiMain.mnuGoItem4.Visible = True
-                mdiMain.mnuGoItem4.Caption = mnuClientGoFinance
-            Case Is < 40 'Sales
-                mdiMain.mnuGoItem1.Visible = True
-                mdiMain.mnuGoItem1.Caption = mnuClientGoEnquiry
-                mdiMain.mnuGoItem2.Visible = True
-                mdiMain.mnuGoItem2.Caption = mnuClientGoAcctMaint
-            Case Is < 50 'Accounts
-                mdiMain.mnuGoItem1.Visible = True
-                mdiMain.mnuGoItem1.Caption = mnuClientGoEnquiry
-                mdiMain.mnuGoItem2.Visible = True
-                mdiMain.mnuGoItem2.Caption = mnuClientGoAcctMaint
-                mdiMain.mnuGoItem3.Visible = True
-                mdiMain.mnuGoItem3.Caption = mnuClientGoFinance
-            'Case Is < 99 ' General Managers
-            Case Is < 100 ' Information Systems
-                mdiMain.mnuGoItem1.Visible = True
-                mdiMain.mnuGoItem1.Caption = mnuClientGoOrderEntry
-                mdiMain.mnuGoItem2.Visible = True
-                mdiMain.mnuGoItem2.Caption = mnuClientGoEnquiry
-                mdiMain.mnuGoItem3.Visible = True
-                mdiMain.mnuGoItem3.Caption = mnuClientGoAcctMaint
-                mdiMain.mnuGoItem4.Visible = True
-                mdiMain.mnuGoItem4.Caption = mnuClientGoFinance
-                mdiMain.mnuGoItem5.Visible = True
-                mdiMain.mnuGoItem5.Caption = mnuClientGoPacking
-                mdiMain.mnuGoItem6.Visible = True
-                mdiMain.mnuGoItem6.Caption = mnuClientGoOrderMaint
-            End Select
+        If mdiMain.Visible Then
+            If mdiMain.ActiveForm.Name = "frmAbout" Then
+                lbooBatchEnable = True
+                Select Case gstrGenSysInfo.lngUserLevel
+                Case Is < 20 'Distribution
+                    mdiMain.mnuGoItem1.Caption = mnuClientGoPacking
+                Case Is < 30 'Order Entry
+                    mdiMain.mnuGoItem1.Visible = True
+                    mdiMain.mnuGoItem1.Caption = mnuClientGoOrderEntry
+                    mdiMain.mnuGoItem2.Visible = True
+                    mdiMain.mnuGoItem2.Caption = mnuClientGoEnquiry
+                    mdiMain.mnuGoItem3.Visible = True
+                    mdiMain.mnuGoItem3.Caption = mnuClientGoAcctMaint
+                    mdiMain.mnuGoItem4.Visible = True
+                    mdiMain.mnuGoItem4.Caption = mnuClientGoFinance
+                Case Is < 40 'Sales
+                    mdiMain.mnuGoItem1.Visible = True
+                    mdiMain.mnuGoItem1.Caption = mnuClientGoEnquiry
+                    mdiMain.mnuGoItem2.Visible = True
+                    mdiMain.mnuGoItem2.Caption = mnuClientGoAcctMaint
+                Case Is < 50 'Accounts
+                    mdiMain.mnuGoItem1.Visible = True
+                    mdiMain.mnuGoItem1.Caption = mnuClientGoEnquiry
+                    mdiMain.mnuGoItem2.Visible = True
+                    mdiMain.mnuGoItem2.Caption = mnuClientGoAcctMaint
+                    mdiMain.mnuGoItem3.Visible = True
+                    mdiMain.mnuGoItem3.Caption = mnuClientGoFinance
+                'Case Is < 99 ' General Managers
+                Case Is < 100 ' Information Systems
+                    mdiMain.mnuGoItem1.Visible = True
+                    mdiMain.mnuGoItem1.Caption = mnuClientGoOrderEntry
+                    mdiMain.mnuGoItem2.Visible = True
+                    mdiMain.mnuGoItem2.Caption = mnuClientGoEnquiry
+                    mdiMain.mnuGoItem3.Visible = True
+                    mdiMain.mnuGoItem3.Caption = mnuClientGoAcctMaint
+                    mdiMain.mnuGoItem4.Visible = True
+                    mdiMain.mnuGoItem4.Caption = mnuClientGoFinance
+                    mdiMain.mnuGoItem5.Visible = True
+                    mdiMain.mnuGoItem5.Caption = mnuClientGoPacking
+                    mdiMain.mnuGoItem6.Visible = True
+                    mdiMain.mnuGoItem6.Caption = mnuClientGoOrderMaint
+                End Select
+            End If
+            mdiMain.mnuGoItem1.Enabled = lbooBatchEnable
+            mdiMain.mnuGoItem2.Enabled = lbooBatchEnable
+            mdiMain.mnuGoItem3.Enabled = lbooBatchEnable
+            mdiMain.mnuGoItem4.Enabled = lbooBatchEnable
+            mdiMain.mnuGoItem5.Enabled = lbooBatchEnable
+            mdiMain.mnuGoItem6.Enabled = lbooBatchEnable
         End If
-        mdiMain.mnuGoItem1.Enabled = lbooBatchEnable
-        mdiMain.mnuGoItem2.Enabled = lbooBatchEnable
-        mdiMain.mnuGoItem3.Enabled = lbooBatchEnable
-        mdiMain.mnuGoItem4.Enabled = lbooBatchEnable
-        mdiMain.mnuGoItem5.Enabled = lbooBatchEnable
-        mdiMain.mnuGoItem6.Enabled = lbooBatchEnable
     Case "MAINTENANCE"
         lbooBatchEnable = False
         If mdiMain.ActiveForm.Name = "frmMain" Then
@@ -1705,11 +1707,13 @@ Dim lbooBatchEnable As Boolean
     'Tools Menu items
     Select Case UCase$(App.ProductName)
     Case "LITE", "CLIENT", "MANAGER", "MAINTENANCE"
-        If mdiMain.ActiveForm.Name = "frmAbout" Or mdiMain.ActiveForm.Name = "frmMainReps" Or _
-            mdiMain.ActiveForm.Name = "frmMain" Then
-            mdiMain.mnuToolsMinder.Enabled = True
-        Else
-            mdiMain.mnuToolsMinder.Enabled = False
+        If mdiMain.Visible Then
+            If mdiMain.ActiveForm.Name = "frmAbout" Or mdiMain.ActiveForm.Name = "frmMainReps" Or _
+                mdiMain.ActiveForm.Name = "frmMain" Then
+                mdiMain.mnuToolsMinder.Enabled = True
+            Else
+                mdiMain.mnuToolsMinder.Enabled = False
+            End If
         End If
     Case Else
         mdiMain.mnuToolsMinder.Visible = False
