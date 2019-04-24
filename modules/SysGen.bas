@@ -1,7 +1,7 @@
 Attribute VB_Name = "modSysGen"
 Option Explicit
 Sub SetDBData(pstrTableAndFields() As TableAndFields)
-    ReDim pstrTableAndFields(257)
+    ReDim pstrTableAndFields(252)
  
     'AdviceNotes
     With pstrTableAndFields(0): .strType = "4":     .strName = "CustNum":    .strSize = "4":    .strSourceTable = gtblAdviceNotes:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "True":    .strAllowZeroLength = "False":    End With
@@ -257,26 +257,19 @@ Sub SetDBData(pstrTableAndFields() As TableAndFields)
     With pstrTableAndFields(241): .strType = "8":     .strName = "UserUpdated":    .strSize = "8":    .strSourceTable = gtblSubstitutions:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
     With pstrTableAndFields(242): .strType = "4":     .strName = "OrderLineNum":    .strSize = "4":    .strSourceTable = gtblSubstitutions:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
  
-    'SubstitutionsBase
-    With pstrTableAndFields(243): .strType = "10":     .strName = "SubCatNum":    .strSize = "10":    .strSourceTable = gtblSubstitutionsBase:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
-    With pstrTableAndFields(244): .strType = "10":     .strName = "CatNum":    .strSize = "10":    .strSourceTable = gtblSubstitutionsBase:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
-    With pstrTableAndFields(245): .strType = "4":     .strName = "SubItemQty":    .strSize = "4":    .strSourceTable = gtblSubstitutionsBase:    .strDataUpdatable = "True":    .strDefaultValue = "0":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
-    With pstrTableAndFields(246): .strType = "10":     .strName = "Reason":    .strSize = "50":    .strSourceTable = gtblSubstitutionsBase:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
-    With pstrTableAndFields(247): .strType = "10":     .strName = "TranType":    .strSize = "10":    .strSourceTable = gtblSubstitutionsBase:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
- 
     'System
-    With pstrTableAndFields(248): .strType = "10":     .strName = "Item":    .strSize = "20":    .strSourceTable = gtblSystem:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
-    With pstrTableAndFields(249): .strType = "10":     .strName = "Value":    .strSize = "255":    .strSourceTable = gtblSystem:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
-    With pstrTableAndFields(250): .strType = "8":     .strName = "DateCreated":    .strSize = "8":    .strSourceTable = gtblSystem:    .strDataUpdatable = "True":    .strDefaultValue = "Now()":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
-    With pstrTableAndFields(251): .strType = "8":     .strName = "OtherDate":    .strSize = "8":    .strSourceTable = gtblSystem:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
+    With pstrTableAndFields(243): .strType = "10":     .strName = "Item":    .strSize = "20":    .strSourceTable = gtblSystem:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
+    With pstrTableAndFields(244): .strType = "10":     .strName = "Value":    .strSize = "255":    .strSourceTable = gtblSystem:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
+    With pstrTableAndFields(245): .strType = "8":     .strName = "DateCreated":    .strSize = "8":    .strSourceTable = gtblSystem:    .strDataUpdatable = "True":    .strDefaultValue = "Now()":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
+    With pstrTableAndFields(246): .strType = "8":     .strName = "OtherDate":    .strSize = "8":    .strSourceTable = gtblSystem:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
  
     'Users
-    With pstrTableAndFields(252): .strType = "10":     .strName = "UserID":    .strSize = "20":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
-    With pstrTableAndFields(253): .strType = "10":     .strName = "UserPassword":    .strSize = "20":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "True":    End With
-    With pstrTableAndFields(254): .strType = "10":     .strName = "UserName":    .strSize = "30":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "True":    End With
-    With pstrTableAndFields(255): .strType = "4":     .strName = "UserLevel":    .strSize = "4":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
-    With pstrTableAndFields(256): .strType = "12":     .strName = "UserNotes":    .strSize = "0":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
-    With pstrTableAndFields(257): .strType = "10":     .strName = "Phase":    .strSize = "55":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
+    With pstrTableAndFields(247): .strType = "10":     .strName = "UserID":    .strSize = "20":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
+    With pstrTableAndFields(248): .strType = "10":     .strName = "UserPassword":    .strSize = "20":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "True":    End With
+    With pstrTableAndFields(249): .strType = "10":     .strName = "UserName":    .strSize = "30":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "True":    End With
+    With pstrTableAndFields(250): .strType = "4":     .strName = "UserLevel":    .strSize = "4":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
+    With pstrTableAndFields(251): .strType = "12":     .strName = "UserNotes":    .strSize = "0":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
+    With pstrTableAndFields(252): .strType = "10":     .strName = "Phase":    .strSize = "55":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
 End Sub
 Sub PopFeatList(pobjList As Object, pAll As Boolean, plngIndex() As Long)
 Dim lCtr As Long

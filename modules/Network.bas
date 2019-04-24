@@ -26,7 +26,6 @@ Global Const gtblMachine = "Machine"
 
 Global Const gtblRemarks = "Remarks"
 Global Const gtblSubstitutions = "Substitutions"
-Global Const gtblSubstitutionsBase = "SubstitutionsBase"
 Global Const gtblSystem = "System"
 Global Const gtblUsage = "Usage"
 Global Const gtblUsers = "Users"
