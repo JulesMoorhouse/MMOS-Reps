@@ -2365,48 +2365,6 @@ Dim lstrRetCardString As String
 
 End Function
 
-Sub CreateStockSummary(pstrStockBatchNum As String)
-Dim lstrSQL As String
-    
-    ShowStatus 70
-    On Error GoTo ErrHandler
-
-    lstrSQL = "Delete * from StockSummary;"
-    gdatCentralDatabase.Execute lstrSQL
-
-    ShowStatus 100
-    
-    lstrSQL = "INSERT INTO StockSummary ( CatNum, ItemDescription, BinLocation, " & _
-        "SalesCode, Qty, DespQty, StockBatchNum )" & _
-        "SELECT OrderLinesMaster.CatNum, OrderLinesMaster.ItemDescription, " & _
-        "OrderLinesMaster.BinLocation, OrderLinesMaster.SalesCode, " & _
-        "Sum(OrderLinesMaster.Qty) AS SumOfQty, Sum(OrderLinesMaster.DespQty) " & _
-        "AS SumOfDespQty, AdviceNotes.StockBatchNum FROM OrderLinesMaster " & _
-        "INNER JOIN AdviceNotes ON OrderLinesMaster.OrderNum = AdviceNotes.OrderNum " & _
-        "GROUP BY OrderLinesMaster.CatNum, OrderLinesMaster.ItemDescription, " & _
-        "OrderLinesMaster.BinLocation, OrderLinesMaster.SalesCode, AdviceNotes.StockBatchNum " & _
-        "Having (((AdviceNotes.StockBatchNum) = '" & pstrStockBatchNum & "')) " & _
-        "ORDER BY OrderLinesMaster.CatNum;"
-
-    gdatCentralDatabase.Execute lstrSQL
-
-    ShowStatus 101
-Exit Sub
-ErrHandler:
-    
-    Select Case GlobalErrorHandler(Err.Number, "CreateStockSummary", "Central", True)
-    Case gconIntErrHandRetry
-        Resume
-    Case gconIntErrHandExitFunction
-        Exit Sub
-    Case gconIntErrHandEndProgram
-        LastChanceCafe
-    Case Else
-        Resume Next
-    End Select
-
-
-End Sub
 Sub UpdateCheqNumAndPrinted()
 Dim lstrSQL As String
 Dim lintCheqCount As String
