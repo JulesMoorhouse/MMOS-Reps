@@ -1,6 +1,6 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{00028C01-0000-0000-0000-000000000046}#1.0#0"; "DBGRID32.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmChildProducts 
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Please select products"
@@ -138,12 +138,12 @@ Begin VB.Form frmChildProducts
          BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   6
             AutoSize        =   2
-            TextSave        =   "18/07/02"
+            TextSave        =   "4/27/2019"
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             AutoSize        =   2
-            TextSave        =   "15:52"
+            TextSave        =   "9:37 AM"
          EndProperty
       EndProperty
    End
@@ -339,13 +339,13 @@ Dim lstrOutAutoCatNum As String
                 End If
                 MsgBox "This item is out of stock, or in the threshold.", , gconstrTitlPrefix & "Product Selection"
                 dbgProducts.Col = 3
-                dbgProducts.Text = 0 
-                dbgProducts.Col = 2 
+                dbgProducts.Text = 0
+                dbgProducts.Col = 2
                 dbgProducts.Text = 1
-                gintOrderLineNumber = gintOrderLineNumber + 10  
-                dbgProducts.Col = 5                             
-                dbgProducts.Text = gintOrderLineNumber          
-                dbgProducts.Col = 3                             
+                gintOrderLineNumber = gintOrderLineNumber + 10
+                dbgProducts.Col = 5
+                dbgProducts.Text = gintOrderLineNumber
+                dbgProducts.Col = 3
             ElseIf Val(dbgProducts.Columns(7).Value) < Val(dbgProducts.Text) Then
                 'check for substitue item.
                 lstrRetValCriteria = CheckForSubstitutions(dbgProducts.Columns(0).Value)
@@ -362,15 +362,15 @@ Dim lstrOutAutoCatNum As String
                 
                 MsgBox "There are not enough items in stock to order this amount!", , gconstrTitlPrefix & "Product Selection"
                 dbgProducts.Col = 3
-                dbgProducts.Text = 0  
+                dbgProducts.Text = 0
                 
-                gintOrderLineNumber = gintOrderLineNumber + 10  
-                dbgProducts.Col = 5                             
-                dbgProducts.Text = gintOrderLineNumber          
-                dbgProducts.Col = 3                             
+                gintOrderLineNumber = gintOrderLineNumber + 10
+                dbgProducts.Col = 5
+                dbgProducts.Text = gintOrderLineNumber
+                dbgProducts.Col = 3
             Else
                 dbgProducts.Col = 2
-                dbgProducts.Text = 1 
+                dbgProducts.Text = 1
                 gintOrderLineNumber = gintOrderLineNumber + 10
                 dbgProducts.Col = 5
                 dbgProducts.Text = gintOrderLineNumber
@@ -448,7 +448,7 @@ Private Sub Form_Load()
     
     datProducts.RecordSource = "select * from " & gtblProducts & " where selected = 1 order by ItemDescription"
     
-    SetupHelpFileReqs 
+    SetupHelpFileReqs
     
 End Sub
 
@@ -502,7 +502,4 @@ Sub SetupHelpFileReqs()
     
     txtSearchCriteria.WhatsThisHelpID = IDH_CHIPRODS_SEARCHCRIT
 
-End Sub
-Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
-    
 End Sub

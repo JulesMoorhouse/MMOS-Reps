@@ -498,7 +498,7 @@ Dim lbooVisible As Boolean
             txtIssueNumber.Visible = lbooVisible
             lblValidFrom.Visible = lbooVisible
             cboMonthsStart.Visible = lbooVisible
-            cboYearStart.Visible = lbooVisible 
+            cboYearStart.Visible = lbooVisible
         End If
     End If
     
@@ -802,10 +802,6 @@ Private Sub cmdNotePad_Click()
     
 End Sub
 
-Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
-
-End Sub
-
 Private Sub Form_Load()
 Dim lstrCrap() As String
 
@@ -820,7 +816,7 @@ Dim lstrCrap() As String
     End If
           
     With cboYear
-        'Years changed 
+        'Years changed
         .AddItem Year(DateAdd("YYYY", -5, Now()))
         .AddItem Year(DateAdd("YYYY", -4, Now()))
         .AddItem Year(DateAdd("YYYY", -3, Now()))
@@ -835,7 +831,7 @@ Dim lstrCrap() As String
     End With
             
     With cboYearStart
-        'Years changed 
+        'Years changed
         .AddItem ""
         .AddItem Year(DateAdd("YYYY", -5, Now()))
         .AddItem Year(DateAdd("YYYY", -4, Now()))
@@ -897,7 +893,7 @@ Sub SaveLocalFields()
         If gbooFreeOrder = False Then
             .strPaymentType1 = Trim$(NotNull(cboPaymentType, gstrPaymentTypeCode))
             .strPaymentType2 = Trim$(NotNull(cboPaymentType2, gstrPaymentTypeCode))
-            .strCardNumber = Trim$(txtCCNum) 
+            .strCardNumber = Trim$(txtCCNum)
             
             .lngIssueNumber = CLng(txtIssueNumber)
             .strCardType = Trim$(NotNull(cboCardType, lstrCardType))
@@ -1155,10 +1151,6 @@ Private Sub txtCCNum_LostFocus()
     
 End Sub
 
-
-Private Sub txtDeliveryDate_Click()
-
-End Sub
 
 Private Sub txtDeliveryDate_GotFocus()
 
