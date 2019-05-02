@@ -1,8 +1,8 @@
 Attribute VB_Name = "modNetwork"
 Option Explicit
 
-Global gwrkODBC As Workspace 
-Global gwrkJet As Workspace 
+Global gwrkODBC As Workspace
+Global gwrkJet As Workspace
     
 Dim mstrRefreshQuery As String
 
@@ -179,7 +179,7 @@ ErrorHandler:
         Unload frmButtons
         Unload frmSplash
         gintForceAppClose = fcCompleteClose
-        Unload mdiMain 
+        Unload mdiMain
     Case Else
         Resume Next
     End Select
@@ -564,7 +564,7 @@ Function CheckKeyForCoverExpire() As Date
         
         If Decode(.strCompanyName, .strCompanyTelephone, .strCompanyContact) <> "21" Then
             CheckKeyForCoverExpire = CDate(0)
-            Exit Function 
+            Exit Function
         End If
         
         CheckKeyForCoverExpire = ConvertJulian(CLng(gstrKey.strCoverDate))
@@ -638,7 +638,7 @@ Dim lstrMachName As String
     If pbooWithTimeStamp = False Then
         LockingPhaseGen = UCase$(Trim$(gstrGenSysInfo.strUserName)) & "@" & _
             Format(gdatSystemStartTime, "DDMMYYHHMMSS") & "#" & lstrMachName
-    Else 
+    Else
         'machine name not record in record locking
         LockingPhaseGen = UCase$(Trim$(gstrGenSysInfo.strUserName)) & "@" & _
             Format(gdatSystemStartTime, "DDMMYYHHMMSS") & "&" & Format(Now(), "DDMMYYHHMMSS")
@@ -705,7 +705,7 @@ Dim lstrRepParam As String
 End Sub
 Sub UserLicenceCheck()
 
-    Select Case CheckKeyForEverything
+    Select Case 0 'DEV NOTE 2019 - removed licensing CheckKeyForEverything
     Case 0
         'OK
     Case 99
@@ -713,7 +713,7 @@ Sub UserLicenceCheck()
         frmMakeIt.Show vbModal
         Unhook
         End
-    Case 97, 98 '98  
+    Case 97, 98 '98
         MsgBox "You have exceeded the limit of your user license!", , gconstrTitlPrefix & "Startup"
         frmMakeIt.Show vbModal
         Unhook
