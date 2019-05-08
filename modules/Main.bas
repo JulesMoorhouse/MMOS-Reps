@@ -866,7 +866,7 @@ Sub CheckActivity()
     gintActivityDelayCounter = gintActivityDelayCounter + 1
     
     If gintActivityDelayCounter >= 4 Then
-        If FileDateTime(gstrStatic.strServerPath & gstrStatic.strPrograms(0).strProgram) > FileDateTime(gstrStatic.strAppPath & gstrStatic.strPrograms(0).strProgram) Then
+        If FileDateTime(gstrStatic.strServerPath & gstrStatic.strPrograms(0).strProgram) > FileDateTime(AppPath & gstrStatic.strPrograms(0).strProgram) Then
             ShowStatus 37
             'MsgBox "newer"
         Else

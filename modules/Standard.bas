@@ -112,7 +112,7 @@ Type StaticInfo
     strReportsTestingDBFile     As String
 
     strServerPath               As String
-    strAppPath                  As String
+    'strAppPath                  As String
     strServerTestNewPath        As String
     strSupportPath              As String
     strSupportTestPath          As String
@@ -167,6 +167,17 @@ Sub SetSystemNames()
     End Select
 
 End Sub
+Function AppPath()
+
+    Dim ret As String
+    ret = App.Path
+    If Right(ret, 1) <> "\" Then
+        ret = ret & "\"
+    End If
+
+    AppPath = ret
+
+End Function
 Sub WriteBuffer(pstring As String)
     
     With gstrStatic
@@ -184,7 +195,6 @@ Sub WriteBuffer(pstring As String)
         .strPrograms(3).strDesc = ReturnNthStr(pstring, 10, Chr(182))
         
         .strServerPath = ReturnNthStr(pstring, 21, Chr(182))
-        .strAppPath = ReturnNthStr(pstring, 22, Chr(182))
         .strServerTestNewPath = ReturnNthStr(pstring, 23, Chr(182))
         .strSupportPath = ReturnNthStr(pstring, 24, Chr(182))
         .strSupportTestPath = ReturnNthStr(pstring, 25, Chr(182))
@@ -222,7 +232,7 @@ Const lstrIntlyBlank = "Blank"
         Chr(182) & lstrIntlyBlank & Chr(182) & lstrIntlyBlank & _
         Chr(182) & lstrIntlyBlank & Chr(182) & lstrIntlyBlank & _
         Chr(182) & lstrIntlyBlank & Chr(182) & lstrIntlyBlank & _
-        Chr(182) & .strServerPath & Chr(182) & .strAppPath & _
+        Chr(182) & .strServerPath & _
         Chr(182) & .strServerTestNewPath & Chr(182) & .strSupportPath & _
         Chr(182) & .strSupportTestPath & Chr(182) & .strPFElecFile & _
         Chr(182) & .strVerLogBStatus & _
@@ -273,38 +283,37 @@ Dim lstrPostage As String
 Dim lstrPOWaiver As String
     
     With gstrStatic
-        .strAppPath = GetPrivateINI(Trim$(App.Path) & "\" & gconstrStaticIni, "SysFileInfo", "AppPath")
-        .strServerPath = GetPrivateINI(.strAppPath & gconstrStaticIni, "SysFileInfo", "ServerPath")
-        .strServerTestNewPath = GetPrivateINI(.strAppPath & gconstrStaticIni, "SysFileInfo", "SrvTestPth")
-        .strSupportPath = GetPrivateINI(.strAppPath & gconstrStaticIni, "SysFileInfo", "SuppPath")
-        .strSupportTestPath = GetPrivateINI(.strAppPath & gconstrStaticIni, "SysFileInfo", "SupTestPth")
+        .strServerPath = GetPrivateINI(AppPath & gconstrStaticIni, "SysFileInfo", "ServerPath")
+        .strServerTestNewPath = GetPrivateINI(AppPath & gconstrStaticIni, "SysFileInfo", "SrvTestPth")
+        .strSupportPath = GetPrivateINI(AppPath & gconstrStaticIni, "SysFileInfo", "SuppPath")
+        .strSupportTestPath = GetPrivateINI(AppPath & gconstrStaticIni, "SysFileInfo", "SupTestPth")
                 
         .strTrueLiveServerPath = .strServerPath
         If InStr(UCase(Command$), "/TEST") > 0 Then
             .strServerPath = .strServerTestNewPath
         End If
     
-        .strLocalDBFile = .strAppPath & GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "Local")
-        .strLocalTestingDBFile = .strAppPath & GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "LocalTest")
-        .strCentralDBFile = .strServerPath & GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "Central")
-        .strCentralTestingDBFile = .strServerPath & GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "CentraTest")
-        .strStockImportDB = .strServerPath & GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "StockInput")
+        .strLocalDBFile = AppPath & GetPrivateINI(AppPath & gconstrStaticIni, "DB", "Local")
+        .strLocalTestingDBFile = AppPath & GetPrivateINI(AppPath & gconstrStaticIni, "DB", "LocalTest")
+        .strCentralDBFile = .strServerPath & GetPrivateINI(AppPath & gconstrStaticIni, "DB", "Central")
+        .strCentralTestingDBFile = .strServerPath & GetPrivateINI(AppPath & gconstrStaticIni, "DB", "CentraTest")
+        .strStockImportDB = .strServerPath & GetPrivateINI(AppPath & gconstrStaticIni, "DB", "StockInput")
         
-        .strReportsDBFile = .strAppPath & GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "Reps")
-        .strReportsTestingDBFile = .strAppPath & GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "RepsTest")
+        .strReportsDBFile = AppPath & GetPrivateINI(AppPath & gconstrStaticIni, "DB", "Reps")
+        .strReportsTestingDBFile = AppPath & GetPrivateINI(AppPath & gconstrStaticIni, "DB", "RepsTest")
     
         'Used in Loader program
-        .strShortLocalDBFile = GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "Local")
-        .strShortLocalTestingDBFile = GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "LocalTest")
-        .strShortCentralDBFile = GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "Central")
-        .strShortCentralTestingDBFile = GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "CentraTest")
-        .strShortStockImportDB = GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "StockInput")
+        .strShortLocalDBFile = GetPrivateINI(AppPath & gconstrStaticIni, "DB", "Local")
+        .strShortLocalTestingDBFile = GetPrivateINI(AppPath & gconstrStaticIni, "DB", "LocalTest")
+        .strShortCentralDBFile = GetPrivateINI(AppPath & gconstrStaticIni, "DB", "Central")
+        .strShortCentralTestingDBFile = GetPrivateINI(AppPath & gconstrStaticIni, "DB", "CentraTest")
+        .strShortStockImportDB = GetPrivateINI(AppPath & gconstrStaticIni, "DB", "StockInput")
         
-        .strShortReportsDBFile = GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "Reps")
-        .strShortReportsTestingDBFile = GetPrivateINI(.strAppPath & gconstrStaticIni, "DB", "RepsTest")
+        .strShortReportsDBFile = GetPrivateINI(AppPath & gconstrStaticIni, "DB", "Reps")
+        .strShortReportsTestingDBFile = GetPrivateINI(AppPath & gconstrStaticIni, "DB", "RepsTest")
     
-        .strVerLogBStatus = Trim$(GetPrivateINI(gstrStatic.strAppPath & gconstrStaticIni, "Verbose Logging", "BSTAT"))
-        .strPFElecFile = GetPrivateINI(gstrStatic.strAppPath & gconstrStaticIni, "SysFileInfo", "PFEFile")
+        .strVerLogBStatus = Trim$(GetPrivateINI(AppPath & gconstrStaticIni, "Verbose Logging", "BSTAT"))
+        .strPFElecFile = GetPrivateINI(AppPath & gconstrStaticIni, "SysFileInfo", "PFEFile")
     
    End With
     
@@ -363,32 +372,32 @@ Dim lstrPOWaiver As String
             .strShortReportsTestingDBFile = .strReportsTestingDBFile
         End If
         
-        If (InStr(1, .strLocalDBFile, .strAppPath) = 0) Then
-            .strLocalDBFile = .strAppPath & .strLocalDBFile
+        If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
+            .strLocalDBFile = AppPath & .strLocalDBFile
         End If
         
-        If (InStr(1, .strLocalDBFile, .strAppPath) = 0) Then
-            .strLocalTestingDBFile = .strAppPath & .strLocalTestingDBFile
+        If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
+            .strLocalTestingDBFile = AppPath & .strLocalTestingDBFile
         End If
         
-        If (InStr(1, .strLocalDBFile, .strAppPath) = 0) Then
+        If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
             .strCentralDBFile = .strServerPath & .strCentralDBFile
         End If
         
-        If (InStr(1, .strLocalDBFile, .strAppPath) = 0) Then
+        If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
             .strCentralTestingDBFile = .strServerPath & .strCentralTestingDBFile
         End If
         
-        If (InStr(1, .strLocalDBFile, .strAppPath) = 0) Then
+        If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
             .strStockImportDB = .strServerPath & .strStockImportDB
         End If
         
-        If (InStr(1, .strLocalDBFile, .strAppPath) = 0) Then
-            .strReportsDBFile = .strAppPath & .strReportsDBFile
+        If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
+            .strReportsDBFile = AppPath & .strReportsDBFile
         End If
         
-        If (InStr(1, .strLocalDBFile, .strAppPath) = 0) Then
-            .strReportsTestingDBFile = .strAppPath & .strReportsTestingDBFile
+        If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
+            .strReportsTestingDBFile = AppPath & .strReportsTestingDBFile
         End If
     
    End With

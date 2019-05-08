@@ -1849,7 +1849,7 @@ Dim lintAlwaysMaximized As Integer
                 gintForceAppClose = fcCompleteClose
                 Unload mdiMain
                 
-                RunNWait gstrStatic.strAppPath & "Minder.exe" & " APP"
+                RunNWait AppPath & "Minder.exe" & " APP"
             End If
     Case mdiMain.mnuToolsResetGrid.Caption
         lintRetVal = MsgBox("Do you wish to reset the grid(s) wisths for this screen?", _

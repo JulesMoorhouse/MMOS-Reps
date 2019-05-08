@@ -414,7 +414,7 @@ Dim lintRetVal As Variant
         Set gdatCentralDatabase = Nothing
         
         lstrSourcePath = gstrStatic.strServerPath '& "\"
-        lstrDestinationPath = gstrStatic.strAppPath '& "\"
+        lstrDestinationPath = AppPath
         
         lstrSourceFile = lstrSourcePath & "Minder.exe"
         lstrDestinationFile = lstrDestinationPath & "Minder.exe"

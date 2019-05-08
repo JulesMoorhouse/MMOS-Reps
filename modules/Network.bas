@@ -675,7 +675,7 @@ Dim lstrRepParam As String
     End If
     
     lstrSourcePath = gstrStatic.strServerPath
-    lstrDestinationPath = gstrStatic.strAppPath
+    lstrDestinationPath = AppPath
     
     lstrSourceFile = lstrSourcePath & "Loader.exe"
     lstrDestinationFile = lstrDestinationPath & "Loader.exe"

@@ -104,7 +104,6 @@ Dim llngRecCount As Long
                 If lsnaLists.Fields("ListCode") = "RepsTest" Then .strReportsTestingDBFile = lsnaLists.Fields("Description")
                 If lsnaLists.Fields("ListCode") = "StockInput" Then .strStockImportDB = lsnaLists.Fields("Description")
             Case "SysFileInfo"
-                If lsnaLists.Fields("ListCode") = "AppPath" Then .strAppPath = lsnaLists.Fields("Description")
                 If lsnaLists.Fields("ListCode") = "ServerPath" Then .strServerPath = lsnaLists.Fields("Description")
                 If lsnaLists.Fields("ListCode") = "SrvTestPth" Then .strServerTestNewPath = lsnaLists.Fields("Description")
                 If lsnaLists.Fields("ListCode") = "SuppPath" Then .strSupportPath = lsnaLists.Fields("Description")
