@@ -143,14 +143,14 @@ Sub SetSystemNames()
     gconstrTitlPrefix = "MMOS - "
     gconstrProductFullName = "Mindwarp Mail Order System"
     gconstrProductShortName = "MMOS"
+    gstrIniAppName = "Mindwarp Mail Order System"
 
     Select Case gstrSystemRoute
     Case srCompanyRoute, srCompanyDebugRoute
-        gstrIniAppName = "TMOS"
         If gstrSystemRoute = srCompanyDebugRoute Then
             If InStr(UCase(Command$), "/TEST") > 0 Then
-                gstrDBPasswords.strCentralDBPasswordString = ";Uid=Admin;pwd=denise"
-                gstrDBPasswords.strLocalDBPasswordString = ";Uid=Admin;pwd=denise"
+                gstrDBPasswords.strCentralDBPasswordString = ";Uid=Admin;pwd=password123" 'TODO: Change for production
+                gstrDBPasswords.strLocalDBPasswordString = ";Uid=Admin;pwd=password123"
             Else
                 gstrSystemRoute = srCompanyRoute
             End If
@@ -161,8 +161,8 @@ Sub SetSystemNames()
         Else
             gstrIniAppName = "MMOS Lite"
         End If
-        gstrDBPasswords.strCentralDBPasswordString = ";Uid=Admin;pwd=denise"
-        gstrDBPasswords.strLocalDBPasswordString = ";Uid=Admin;pwd=denise"
+        gstrDBPasswords.strCentralDBPasswordString = ";Uid=Admin;pwd=password123"
+        gstrDBPasswords.strLocalDBPasswordString = ";Uid=Admin;pwd=password123"
         
     End Select
 
