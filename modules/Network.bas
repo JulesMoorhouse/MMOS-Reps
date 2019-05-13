@@ -100,18 +100,6 @@ Dim lvarErrorStage As Variant
             End If
         End If
         
-        'not to be confused with Stock Summary DB.
-        If gstrSystemRoute = srCompanyRoute Or gstrSystemRoute = srCompanyDebugRoute Then
-            'Stock Input DB
-            If Trim$(Dir(.strStockImportDB)) = "" Or Trim$(.strStockImportDB) = "" Then
-                lvarErrorStage = 50
-                MsgBox "Please check your access to the network!, " & _
-                "if in difficulty consult your technical support office!" & vbCrLf & vbCrLf & _
-                "System closing!", , gconstrTitlPrefix & "Init DB"
-                End
-            End If
-        End If
-        
         'Connect to DB's
         If InStr(UCase(Command$), "/TEST") > 0 Then
             gstrUserMode = gconstrTestingMode

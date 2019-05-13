@@ -106,7 +106,6 @@ Type StaticInfo
     strLocalTestingDBFile       As String
     strCentralDBFile            As String
     strCentralTestingDBFile     As String
-    strStockImportDB            As String
     
     strReportsDBFile            As String
     strReportsTestingDBFile     As String
@@ -127,7 +126,6 @@ Type StaticInfo
     strShortLocalTestingDBFile       As String
     strShortCentralDBFile            As String
     strShortCentralTestingDBFile     As String
-    strShortStockImportDB            As String
     strShortReportsDBFile            As String
     strShortReportsTestingDBFile     As String
     
@@ -185,35 +183,34 @@ Sub WriteBuffer(pstring As String)
         .strLocalTestingDBFile = ReturnNthStr(pstring, 2, Chr(182))
         .strCentralDBFile = ReturnNthStr(pstring, 3, Chr(182))
         .strCentralTestingDBFile = ReturnNthStr(pstring, 4, Chr(182))
-        .strStockImportDB = ReturnNthStr(pstring, 5, Chr(182))
         
-        .strReportsDBFile = ReturnNthStr(pstring, 6, Chr(182))
-        .strReportsTestingDBFile = ReturnNthStr(pstring, 7, Chr(182))
+        .strReportsDBFile = ReturnNthStr(pstring, 5, Chr(182))
+        .strReportsTestingDBFile = ReturnNthStr(pstring, 6, Chr(182))
     
-        .strPrograms(3).strProgram = ReturnNthStr(pstring, 8, Chr(182))
-        .strPrograms(3).strParam = ReturnNthStr(pstring, 9, Chr(182))
-        .strPrograms(3).strDesc = ReturnNthStr(pstring, 10, Chr(182))
+        .strPrograms(3).strProgram = ReturnNthStr(pstring, 7, Chr(182))
+        .strPrograms(3).strParam = ReturnNthStr(pstring, 8, Chr(182))
+        .strPrograms(3).strDesc = ReturnNthStr(pstring, 9, Chr(182))
         
-        .strServerPath = ReturnNthStr(pstring, 21, Chr(182))
-        .strServerTestNewPath = ReturnNthStr(pstring, 23, Chr(182))
-        .strSupportPath = ReturnNthStr(pstring, 24, Chr(182))
-        .strSupportTestPath = ReturnNthStr(pstring, 25, Chr(182))
+        .strServerPath = ReturnNthStr(pstring, 20, Chr(182))
+        .strServerTestNewPath = ReturnNthStr(pstring, 22, Chr(182))
+        .strSupportPath = ReturnNthStr(pstring, 23, Chr(182))
+        .strSupportTestPath = ReturnNthStr(pstring, 24, Chr(182))
         
-        .strPFElecFile = ReturnNthStr(pstring, 26, Chr(182))
-        .strVerLogBStatus = ReturnNthStr(pstring, 27, Chr(182))
+        .strPFElecFile = ReturnNthStr(pstring, 25, Chr(182))
+        .strVerLogBStatus = ReturnNthStr(pstring, 26, Chr(182))
         
-        .strPrograms(0).strProgram = ReturnNthStr(pstring, 28, Chr(182))
-        .strPrograms(0).strParam = ReturnNthStr(pstring, 29, Chr(182))
-        .strPrograms(0).strDesc = ReturnNthStr(pstring, 30, Chr(182))
+        .strPrograms(0).strProgram = ReturnNthStr(pstring, 27, Chr(182))
+        .strPrograms(0).strParam = ReturnNthStr(pstring, 28, Chr(182))
+        .strPrograms(0).strDesc = ReturnNthStr(pstring, 29, Chr(182))
         
-        .strPrograms(1).strProgram = ReturnNthStr(pstring, 31, Chr(182))
-        .strPrograms(1).strParam = ReturnNthStr(pstring, 32, Chr(182))
-        .strPrograms(1).strDesc = ReturnNthStr(pstring, 33, Chr(182))
+        .strPrograms(1).strProgram = ReturnNthStr(pstring, 30, Chr(182))
+        .strPrograms(1).strParam = ReturnNthStr(pstring, 31, Chr(182))
+        .strPrograms(1).strDesc = ReturnNthStr(pstring, 32, Chr(182))
         
-        .strPrograms(2).strProgram = ReturnNthStr(pstring, 34, Chr(182))
-        .strPrograms(2).strParam = ReturnNthStr(pstring, 35, Chr(182))
-        .strPrograms(2).strDesc = ReturnNthStr(pstring, 36, Chr(182))
-        .strUnlockCode = ReturnNthStr(pstring, 37, Chr(182))
+        .strPrograms(2).strProgram = ReturnNthStr(pstring, 33, Chr(182))
+        .strPrograms(2).strParam = ReturnNthStr(pstring, 34, Chr(182))
+        .strPrograms(2).strDesc = ReturnNthStr(pstring, 35, Chr(182))
+        .strUnlockCode = ReturnNthStr(pstring, 36, Chr(182))
     End With
    
 End Sub
@@ -224,7 +221,7 @@ Const lstrIntlyBlank = "Blank"
     With gstrStatic
         ReadBuffer = .strLocalDBFile & Chr(182) & .strLocalTestingDBFile & _
         Chr(182) & .strCentralDBFile & Chr(182) & .strCentralTestingDBFile & _
-        Chr(182) & .strStockImportDB & Chr(182) & .strReportsDBFile & _
+        Chr(182) & .strReportsDBFile & _
         Chr(182) & .strReportsTestingDBFile & _
         Chr(182) & .strPrograms(3).strProgram & Chr(182) & .strPrograms(3).strParam & Chr(182) & .strPrograms(3).strDesc & _
         Chr(182) & lstrIntlyBlank & Chr(182) & lstrIntlyBlank & _
@@ -297,7 +294,6 @@ Dim lstrPOWaiver As String
         .strLocalTestingDBFile = AppPath & GetPrivateINI(AppPath & gconstrStaticIni, "DB", "LocalTest")
         .strCentralDBFile = .strServerPath & GetPrivateINI(AppPath & gconstrStaticIni, "DB", "Central")
         .strCentralTestingDBFile = .strServerPath & GetPrivateINI(AppPath & gconstrStaticIni, "DB", "CentraTest")
-        .strStockImportDB = .strServerPath & GetPrivateINI(AppPath & gconstrStaticIni, "DB", "StockInput")
         
         .strReportsDBFile = AppPath & GetPrivateINI(AppPath & gconstrStaticIni, "DB", "Reps")
         .strReportsTestingDBFile = AppPath & GetPrivateINI(AppPath & gconstrStaticIni, "DB", "RepsTest")
@@ -307,7 +303,6 @@ Dim lstrPOWaiver As String
         .strShortLocalTestingDBFile = GetPrivateINI(AppPath & gconstrStaticIni, "DB", "LocalTest")
         .strShortCentralDBFile = GetPrivateINI(AppPath & gconstrStaticIni, "DB", "Central")
         .strShortCentralTestingDBFile = GetPrivateINI(AppPath & gconstrStaticIni, "DB", "CentraTest")
-        .strShortStockImportDB = GetPrivateINI(AppPath & gconstrStaticIni, "DB", "StockInput")
         
         .strShortReportsDBFile = GetPrivateINI(AppPath & gconstrStaticIni, "DB", "Reps")
         .strShortReportsTestingDBFile = GetPrivateINI(AppPath & gconstrStaticIni, "DB", "RepsTest")
@@ -367,7 +362,6 @@ Dim lstrPOWaiver As String
             .strShortLocalTestingDBFile = .strLocalTestingDBFile
             .strShortCentralDBFile = .strCentralDBFile
             .strShortCentralTestingDBFile = .strCentralTestingDBFile
-            .strShortStockImportDB = .strStockImportDB
             .strShortReportsDBFile = .strReportsDBFile
             .strShortReportsTestingDBFile = .strReportsTestingDBFile
         End If
@@ -386,10 +380,6 @@ Dim lstrPOWaiver As String
         
         If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
             .strCentralTestingDBFile = .strServerPath & .strCentralTestingDBFile
-        End If
-        
-        If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
-            .strStockImportDB = .strServerPath & .strStockImportDB
         End If
         
         If (InStr(1, .strLocalDBFile, AppPath) = 0) Then

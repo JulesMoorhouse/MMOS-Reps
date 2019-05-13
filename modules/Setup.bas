@@ -102,7 +102,6 @@ Dim llngRecCount As Long
                 If lsnaLists.Fields("ListCode") = "LocalTest" Then .strLocalTestingDBFile = lsnaLists.Fields("Description")
                 If lsnaLists.Fields("ListCode") = "Reps" Then .strReportsDBFile = lsnaLists.Fields("Description")
                 If lsnaLists.Fields("ListCode") = "RepsTest" Then .strReportsTestingDBFile = lsnaLists.Fields("Description")
-                If lsnaLists.Fields("ListCode") = "StockInput" Then .strStockImportDB = lsnaLists.Fields("Description")
             Case "SysFileInfo"
                 If lsnaLists.Fields("ListCode") = "ServerPath" Then .strServerPath = lsnaLists.Fields("Description")
                 If lsnaLists.Fields("ListCode") = "SrvTestPth" Then .strServerTestNewPath = lsnaLists.Fields("Description")
@@ -464,13 +463,11 @@ Dim lintRetVal
             .strSupportTestPath = .strServerPath & "TestNew\Setup\Support\"
             '.strCentralDBFile = .strServerPath & .strShortCentralDBFile
             '.strCentralTestingDBFile = .strServerPath & .strShortCentralTestingDBFile
-            '.strStockImportDB = .strServerPath & .strShortStockImportDB
                                    
             .strLocalDBFile = .strShortLocalDBFile
             .strLocalTestingDBFile = .strShortLocalTestingDBFile
             .strCentralDBFile = .strShortCentralDBFile
             .strCentralTestingDBFile = .strShortCentralTestingDBFile
-            .strStockImportDB = .strShortStockImportDB
             .strReportsDBFile = .strShortReportsDBFile
             .strReportsTestingDBFile = .strShortReportsTestingDBFile
             
