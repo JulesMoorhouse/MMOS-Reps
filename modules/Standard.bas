@@ -167,13 +167,13 @@ Sub SetSystemNames()
 End Sub
 Function AppPath()
 
-    Dim ret As String
-    ret = App.Path
-    If Right(ret, 1) <> "\" Then
-        ret = ret & "\"
+    Dim Ret As String
+    Ret = App.Path
+    If Right(Ret, 1) <> "\" Then
+        Ret = Ret & "\"
     End If
 
-    AppPath = ret
+    AppPath = Ret
 
 End Function
 Sub WriteBuffer(pstring As String)
@@ -184,14 +184,14 @@ Sub WriteBuffer(pstring As String)
         .strCentralDBFile = ReturnNthStr(pstring, 3, Chr(182))
         .strCentralTestingDBFile = ReturnNthStr(pstring, 4, Chr(182))
         
-        .strReportsDBFile = ReturnNthStr(pstring, 5, Chr(182))
-        .strReportsTestingDBFile = ReturnNthStr(pstring, 6, Chr(182))
+        .strReportsDBFile = ReturnNthStr(pstring, 6, Chr(182))
+        .strReportsTestingDBFile = ReturnNthStr(pstring, 7, Chr(182))
     
-        .strPrograms(3).strProgram = ReturnNthStr(pstring, 7, Chr(182))
-        .strPrograms(3).strParam = ReturnNthStr(pstring, 8, Chr(182))
-        .strPrograms(3).strDesc = ReturnNthStr(pstring, 9, Chr(182))
+        .strPrograms(3).strProgram = ReturnNthStr(pstring, 8, Chr(182))
+        .strPrograms(3).strParam = ReturnNthStr(pstring, 9, Chr(182))
+        .strPrograms(3).strDesc = ReturnNthStr(pstring, 10, Chr(182))
         
-        .strServerPath = ReturnNthStr(pstring, 20, Chr(182))
+        .strServerPath = ReturnNthStr(pstring, 21, Chr(182))
         .strServerTestNewPath = ReturnNthStr(pstring, 22, Chr(182))
         .strSupportPath = ReturnNthStr(pstring, 23, Chr(182))
         .strSupportTestPath = ReturnNthStr(pstring, 24, Chr(182))
@@ -199,18 +199,18 @@ Sub WriteBuffer(pstring As String)
         .strPFElecFile = ReturnNthStr(pstring, 25, Chr(182))
         .strVerLogBStatus = ReturnNthStr(pstring, 26, Chr(182))
         
-        .strPrograms(0).strProgram = ReturnNthStr(pstring, 27, Chr(182))
-        .strPrograms(0).strParam = ReturnNthStr(pstring, 28, Chr(182))
-        .strPrograms(0).strDesc = ReturnNthStr(pstring, 29, Chr(182))
+        .strPrograms(0).strProgram = ReturnNthStr(pstring, 28, Chr(182))
+        .strPrograms(0).strParam = ReturnNthStr(pstring, 29, Chr(182))
+        .strPrograms(0).strDesc = ReturnNthStr(pstring, 30, Chr(182))
         
-        .strPrograms(1).strProgram = ReturnNthStr(pstring, 30, Chr(182))
-        .strPrograms(1).strParam = ReturnNthStr(pstring, 31, Chr(182))
-        .strPrograms(1).strDesc = ReturnNthStr(pstring, 32, Chr(182))
+        .strPrograms(1).strProgram = ReturnNthStr(pstring, 31, Chr(182))
+        .strPrograms(1).strParam = ReturnNthStr(pstring, 32, Chr(182))
+        .strPrograms(1).strDesc = ReturnNthStr(pstring, 33, Chr(182))
         
-        .strPrograms(2).strProgram = ReturnNthStr(pstring, 33, Chr(182))
-        .strPrograms(2).strParam = ReturnNthStr(pstring, 34, Chr(182))
-        .strPrograms(2).strDesc = ReturnNthStr(pstring, 35, Chr(182))
-        .strUnlockCode = ReturnNthStr(pstring, 36, Chr(182))
+        .strPrograms(2).strProgram = ReturnNthStr(pstring, 34, Chr(182))
+        .strPrograms(2).strParam = ReturnNthStr(pstring, 35, Chr(182))
+        .strPrograms(2).strDesc = ReturnNthStr(pstring, 36, Chr(182))
+        .strUnlockCode = ReturnNthStr(pstring, 37, Chr(182))
     End With
    
 End Sub
@@ -221,7 +221,7 @@ Const lstrIntlyBlank = "Blank"
     With gstrStatic
         ReadBuffer = .strLocalDBFile & Chr(182) & .strLocalTestingDBFile & _
         Chr(182) & .strCentralDBFile & Chr(182) & .strCentralTestingDBFile & _
-        Chr(182) & .strReportsDBFile & _
+        Chr(182) & lstrIntlyBlank & Chr(182) & .strReportsDBFile & _
         Chr(182) & .strReportsTestingDBFile & _
         Chr(182) & .strPrograms(3).strProgram & Chr(182) & .strPrograms(3).strParam & Chr(182) & .strPrograms(3).strDesc & _
         Chr(182) & lstrIntlyBlank & Chr(182) & lstrIntlyBlank & _
@@ -341,17 +341,22 @@ Dim lstrIndex As String
     End If
     
 End Sub
-Sub CheckStaticCipher()
+Sub CheckStaticCipher(Optional pstrSpecificStaticLdr As String = "")
 Dim lstrVAT As String
 Dim lstrDenom As String
 Dim lstrPostage As String
 Dim lstrPOWaiver As String
  
+    Dim lstrStaticLdr As String: lstrStaticLdr = Trim$(App.Path) & "\" & gconstrStaticLdr
+    If pstrSpecificStaticLdr <> "" Then
+        lstrStaticLdr = pstrSpecificStaticLdr
+    End If
      'to be used in the future
-    Decrypt Trim$(App.Path) & "\" & gconstrStaticLdr, gconEncryptStatic
+    Decrypt lstrStaticLdr, gconEncryptStatic
     
     With gstrStatic
         .strTrueLiveServerPath = .strServerPath
+    
         If InStr(UCase(Command$), "/TEST") > 0 Then
             .strServerPath = .strServerTestNewPath
         End If
@@ -370,23 +375,23 @@ Dim lstrPOWaiver As String
             .strLocalDBFile = AppPath & .strLocalDBFile
         End If
         
-        If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
+        If (InStr(1, .strLocalTestingDBFile, AppPath) = 0) Then
             .strLocalTestingDBFile = AppPath & .strLocalTestingDBFile
         End If
         
-        If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
+        If (InStr(1, .strCentralDBFile, AppPath) = 0) Then
             .strCentralDBFile = .strServerPath & .strCentralDBFile
         End If
         
-        If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
+        If (InStr(1, .strCentralTestingDBFile, AppPath) = 0) Then
             .strCentralTestingDBFile = .strServerPath & .strCentralTestingDBFile
         End If
         
-        If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
+        If (InStr(1, .strReportsDBFile, AppPath) = 0) Then
             .strReportsDBFile = AppPath & .strReportsDBFile
         End If
         
-        If (InStr(1, .strLocalDBFile, AppPath) = 0) Then
+        If (InStr(1, .strReportsTestingDBFile, AppPath) = 0) Then
             .strReportsTestingDBFile = AppPath & .strReportsTestingDBFile
         End If
     
