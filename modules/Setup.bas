@@ -413,7 +413,7 @@ Dim lvarErrorStage
             Encrypt gstrStatic.strTrueLiveServerPath & gconstrStaticLdr, gconEncryptStatic
             MsgBox "Static has been deployed!" & vbCrLf & vbCrLf & "You are about to logged out of the system!", , gconstrTitlPrefix & "System Lists"
             
-            'UpdateLoader 
+            'UpdateLoader
             'Unload Me
            
             Unhook
@@ -433,7 +433,7 @@ Dim lintRetVal
         "before proceeding", vbYesNo, gconstrTitlPrefix & "Config")
     If lintRetVal <> vbYes Then Exit Sub
     
-    If UCase(Dir(Trim$(App.Path) & "\" & gconstrStaticLdr, vbNormal)) = UCase(gconstrStaticLdr) Then
+    If UCase(Dir(Trim$(App.path) & "\" & gconstrStaticLdr, vbNormal)) = UCase(gconstrStaticLdr) Then
         'get existing loader info, this will be used unless overwritten below
         CheckStaticCipher
         With gstrStatic

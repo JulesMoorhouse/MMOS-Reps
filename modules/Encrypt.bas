@@ -5,12 +5,13 @@ Global Const gconEncryptStatic = "STATIC"
 Global Const gconEncryptDataFile = "DATAFILE"
 
 Sub Encrypt(pstrOutputFile As String, pstrOption As String, Optional pstrInputFile As String)
-Dim strHead As String
-Dim strT As String
-Dim strA As String
-Dim cphX As New clsCipher
-Dim lngN As Long
-Dim lintFreeFile As Integer
+
+    Dim strHead As String
+    Dim strT As String
+    Dim strA As String
+    Dim cphX As New clsCipher
+    Dim lngN As Long
+    Dim lintFreeFile As Integer
 
     Select Case pstrOption
     Case gconEncryptStatic
@@ -47,12 +48,13 @@ Dim lintFreeFile As Integer
 End Sub
 
 Sub Decrypt(pstrInputFile As String, pstrOption As String, Optional pstrOutputFile As Variant)
-Dim strHead As String
-Dim strA As String
-Dim strT As String
-Dim cphX As New clsCipher
-Dim lngN As Long
-Dim lintFreeFile As Integer
+
+    Dim strHead As String
+    Dim strA As String
+    Dim strT As String
+    Dim cphX As New clsCipher
+    Dim lngN As Long
+    Dim lintFreeFile As Integer
         
     lintFreeFile = FreeFile
     
@@ -91,7 +93,8 @@ Dim lintFreeFile As Integer
 End Sub
 
 Function Hash(strA As String) As String
-Dim cphHash As New clsCipher
+
+    Dim cphHash As New clsCipher
     
     cphHash.KeyString = strA & "123456"
     cphHash.Text = strA & "123456"

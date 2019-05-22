@@ -18,11 +18,11 @@ Declare Function GetSystemDirectory Lib "KERNEL32" Alias "GetSystemDirectoryA" _
 (ByVal lstrBuffer As String, ByVal llngsize As Long) As Long
 
 Public Declare Function GetWindowsDirectory Lib "KERNEL32" Alias "GetWindowsDirectoryA" (ByVal lpBuffer As String, ByVal nSize As Long) As Long
-Public Declare Function CloseWindow Lib "user32" (ByVal hWnd As Long) As Long
+Public Declare Function CloseWindow Lib "user32" (ByVal hwnd As Long) As Long
 Public Declare Function FindWindow Lib "user32" Alias "FindWindowA" (ByVal lpClassName As String, ByVal lpWindowName As String) As Long
-Declare Function ShowWindow Lib "user32" (ByVal hWnd As Long, ByVal nCmdShow As Long) As Long
+Declare Function ShowWindow Lib "user32" (ByVal hwnd As Long, ByVal nCmdShow As Long) As Long
 
-Public Declare Function DestroyWindow Lib "user32" (ByVal hWnd As Long) As Long
+Public Declare Function DestroyWindow Lib "user32" (ByVal hwnd As Long) As Long
 
 Public Declare Function OSfCreateShellLink Lib "VB6STKIT.DLL" Alias "fCreateShellLink" (ByVal lpstrFolderName As String, ByVal lpstrLinkName As String, ByVal lpstrLinkPath As String, ByVal lpstrLinkArguments As String, ByVal fPrivate As Long, ByVal sParent As String) As Long
 Public Declare Function GetUserName Lib "advapi32.dll" Alias "GetUserNameA" (ByVal lpBuffer As String, nSize As Long) As Long
@@ -71,7 +71,7 @@ Public Declare Function CreateProcessA Lib "KERNEL32" (ByVal _
    PROCESS_INFORMATION) As Long
 
 
-Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hWnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
+Public Declare Function ShellExecute Lib "Shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
 Public Declare Function CloseHandle Lib "KERNEL32" (ByVal hObject As Long) As Long
 
 Public Const NORMAL_PRIORITY_CLASS = &H20&
@@ -85,23 +85,55 @@ Declare Function WritePrivateProfileString Lib "KERNEL32" Alias "WritePrivatePro
 Declare Function apiCopyFile Lib "KERNEL32" Alias "CopyFileA" (ByVal lpExistingFileName As String, ByVal lpNewFileName As String, ByVal bFailIfExists As Long) As Long
 
 'GetNetDir calls Start
-Private Declare Function SHGetSpecialFolderLocation Lib "shell32.dll" _
-                    (ByVal hwndOwner As Long, ByVal nFolder As Long, _
-                     pidl As ITEMIDLIST) As Long
-Private Declare Function SHGetPathFromIDList Lib "shell32.dll" Alias "SHGetPathFromIDListA" _
-                        (ByVal pidl As Long, ByVal pszPath As String) As Long
-                        
-Private Declare Function SHGetFolderPath Lib "shfolder" Alias "SHGetFolderPathA" (ByVal hWnd As Long, ByVal csidl As Long, ByVal hToken As Long, ByVal dwFlags As Long, ByVal szPath As String) As Long
+Private Const BIF_RETURNONLYFSDIRS = 1
+Private Const BIF_DONTGOBELOWDOMAIN = 2
+Public Const MAX_PATH = 260
 
-Private Type SHITEMID
-    cb As Long
-    abID As Byte
+Private Declare Function SHBrowseForFolder Lib "shell32" (lpbi As BrowseInfo) As Long
+
+Private Declare Function SHGetPathFromIDList Lib _
+    "shell32" (ByVal pidList As Long, ByVal lpBuffer As String) As Long
+
+Private Declare Function lstrcat Lib "KERNEL32" Alias "lstrcatA" (ByVal lpString1 As String, ByVal _
+    lpString2 As String) As Long
+
+Declare Sub CoTaskMemFree Lib "ole32.dll" (ByVal pv As Long)
+
+Declare Function SHGetSpecialFolderLocation Lib "Shell32.dll" _
+                              (ByVal hwndOwner As Long, ByVal nFolder As Long, _
+                              pIdl As ITEMIDLIST) As Long
+                              
+Private Type BrowseInfo
+   hwndOwner As Long
+   pIDLRoot As Long
+   pszDisplayName As String
+   'pszDisplayName As Long
+   'lpszTitle As Long
+   lpszTitle As String
+   ulFlags As Long
+   lpfnCallback As Long
+   lParam As Long
+   iImage As Long
 End Type
-Private Type ITEMIDLIST
+
+Type SHITEMID   ' mkid
+    cb As Long       ' Size of the ID (including cb itself)
+    abID() As Byte  ' The item ID (variable length)
+End Type
+
+Private Type ITEMIDLIST   ' idl
     mkid As SHITEMID
 End Type
 
-''GetNetDir Calls End
+Type SHFILEINFO   ' shfi
+    hIcon As Long
+    iIcon As Long
+    dwAttributes As Long
+    szDisplayName As String * MAX_PATH
+    szTypeName As String * 80
+End Type
+Public Const NOERROR = 0
+'GetNetDir Calls End
 
 'Windows Copy Dlg start
 Private Const FO_COPY = &H2&
@@ -121,7 +153,7 @@ Private Const FOF_SIMPLEPROGRESS = &H100&
 Private Const FOF_WANTMAPPINGHANDLE = &H20&
 
 Private Type SHFILEOPSTRUCT
-   hWnd As Long
+   hwnd As Long
    wFunc As Long
    pFrom As String
    pTo As String
@@ -134,7 +166,7 @@ End Type
 Private Declare Sub CopyMemory Lib "KERNEL32" Alias "RtlMoveMemory" _
       (hpvDest As Any, hpvSource As Any, ByVal cbCopy As Long)
 
-Private Declare Function SHFileOperation Lib "shell32.dll" Alias "SHFileOperationA" _
+Private Declare Function SHFileOperation Lib "Shell32.dll" Alias "SHFileOperationA" _
       (lpFileOp As Any) As Long
       
 '---Stop Close Button and close from Control box Start---
@@ -163,10 +195,10 @@ Public Type MENUITEMINFO
     cch           As Long
 End Type
 'Declarations.
-Public Declare Function GetSystemMenu Lib "user32" (ByVal hWnd As Long, ByVal bRevert As Long) As Long
+Public Declare Function GetSystemMenu Lib "user32" (ByVal hwnd As Long, ByVal bRevert As Long) As Long
 Public Declare Function GetMenuItemInfo Lib "user32" Alias "GetMenuItemInfoA" (ByVal hMenu As Long, ByVal un As Long, ByVal b As Boolean, lpMenuItemInfo As MENUITEMINFO) As Long
 Public Declare Function SetMenuItemInfo Lib "user32" Alias "SetMenuItemInfoA" (ByVal hMenu As Long, ByVal un As Long, ByVal bool As Boolean, lpcMenuItemInfo As MENUITEMINFO) As Long
-Public Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hWnd As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
+Public Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
 'Application-specific constants and variables.
 Public Const xSC_CLOSE  As Long = -10
 Public Const SwapID     As Long = 1
@@ -200,7 +232,7 @@ Public Const HH_CLOSE_ALL = &H12
 Public Const HH_TP_HELP_WM_HELP = &H11
 
 Public Declare Function HTMLHelp Lib "hhctrl.ocx" _
-    Alias "HtmlHelpA" (ByVal hWnd As Long, _
+    Alias "HtmlHelpA" (ByVal hwnd As Long, _
     ByVal lpHelpFile As String, _
     ByVal wCommand As Long, _
     ByVal dwData As Long) As Long
@@ -221,9 +253,9 @@ End Type
 Public glngPrevWndProc As Long
 Global gHW As Long
 
-Public Declare Function DefWindowProc Lib "user32" Alias "DefWindowProcA" (ByVal hWnd As Long, ByVal wMsg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
-Public Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcA" (ByVal lpPrevWndFunc As Long, ByVal hWnd As Long, ByVal Msg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
-Public Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
+Public Declare Function DefWindowProc Lib "user32" Alias "DefWindowProcA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
+Public Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcA" (ByVal lpPrevWndFunc As Long, ByVal hwnd As Long, ByVal Msg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
+Public Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
 Public Declare Sub CopyMemoryToMinMaxInfo Lib "KERNEL32" Alias "RtlMoveMemory" (hpvDest As MINMAXINFO, ByVal hpvSource As Long, ByVal cbCopy As Long)
 Public Declare Sub CopyMemoryFromMinMaxInfo Lib "KERNEL32" Alias "RtlMoveMemory" (ByVal hpvDest As Long, hpvSource As MINMAXINFO, ByVal cbCopy As Long)
 
@@ -261,7 +293,7 @@ Public Const MF_BYCOMMAND = &H0&
 Public Declare Function CreateMenu Lib "user32" () As Long
 Public Declare Function CreatePopupMenu Lib "user32" () As Long
 Public Declare Function AppendMenu Lib "user32" Alias "AppendMenuA" (ByVal hMenu As Long, ByVal wFlags As Long, ByVal wIDNewItem As Long, ByVal lpNewItem As Any) As Long
-Public Declare Function SetMenu Lib "user32" (ByVal hWnd As Long, ByVal hMenu As Long) As Long
+Public Declare Function SetMenu Lib "user32" (ByVal hwnd As Long, ByVal hMenu As Long) As Long
 'Public Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
 'Public Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcA" (ByVal lpPrevWndFunc As Long, ByVal hwnd As Long, ByVal Msg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
 Public Declare Function DestroyMenu Lib "user32" (ByVal hMenu As Long) As Long
@@ -269,9 +301,9 @@ Global glngUIRetMenu As Long
 '----Dynamic Menu stuff
 
 'App Instance stuff
-Declare Function GetWindowText Lib "user32" Alias "GetWindowTextA" (ByVal hWnd As Long, ByVal lpString As String, ByVal cch As Long) As Long
-Declare Function GetWindow Lib "user32" (ByVal hWnd As Long, ByVal wCmd As Long) As Long
-Declare Function GetTopWindow Lib "user32" (ByVal hWnd As Long) As Long
+Declare Function GetWindowText Lib "user32" Alias "GetWindowTextA" (ByVal hwnd As Long, ByVal lpString As String, ByVal cch As Long) As Long
+Declare Function GetWindow Lib "user32" (ByVal hwnd As Long, ByVal wCmd As Long) As Long
+Declare Function GetTopWindow Lib "user32" (ByVal hwnd As Long) As Long
 Public Const GW_HWNDNEXT = 2
 
 'reporting and screen
@@ -289,18 +321,6 @@ Public Const PHYSICALOFFSETY = 113
 
 Private Declare Function SetCursorPos Lib "user32" (ByVal X As Long, ByVal Y As Long) As Long
 
-Public Type OSVERSIONINFO
-    dwOSVersionInfoSize As Long
-    dwMajorVersion As Long
-    dwMinorVersion As Long
-    dwBuildNumber As Long
-    dwPlatformId As Long
-    szCSDVersion As String * 128
-End Type
-
-Public Declare Function GetVersionExA Lib "KERNEL32" _
-       (lpVersionInformation As OSVERSIONINFO) As Long
-       
 Public Function DriveType(sDrive As String) As String
 Dim sDriveName As String
 Const DRIVE_TYPE_UNDTERMINED = 0
@@ -709,54 +729,49 @@ Dim result As Long
     'End If
    
 End Sub
-Public Function IsVistaOrHigher() As Boolean
-
-    Dim osinfo As OSVERSIONINFO
-    Dim retvalue As Integer
-    Dim bVista As Boolean
-
-    bVista = False
-
-    osinfo.dwOSVersionInfoSize = 148
-    osinfo.szCSDVersion = Space$(128)
-    retvalue = GetVersionExA(osinfo)
-
-    If osinfo.dwPlatformId = 2 Then
-        If osinfo.dwMajorVersion >= 6 Then
-            bVista = True
-        End If
-    End If
-    IsVistaOrHigher = bVista
-    
-End Function
-Public Function SHGetSpecialFolderLocationVB(ByVal lFolder As Long) As String
-    Dim lret As Long, IDL As ITEMIDLIST, sPath As String
-
-    lret = SHGetSpecialFolderLocation(100&, lFolder, IDL)
-    If lret = 0 Then
-        sPath = String$(512, Chr$(0))
-        lret = SHGetPathFromIDList(ByVal IDL.mkid.cb, ByVal sPath)
-        SHGetSpecialFolderLocationVB = Left$(sPath, InStr(sPath, Chr$(0)) - 1)
-    Else
-        SHGetSpecialFolderLocationVB = vbNullString
-    End If
-    
-End Function
-Public Function GetSpecialFolder(ByVal eType As Long) As String
-
-    GetSpecialFolder = String(1000, 0)
-    Call SHGetFolderPath(0, eType, 0, 0, GetSpecialFolder)
-    GetSpecialFolder = Left$(GetSpecialFolder, InStr(GetSpecialFolder, Chr$(0)) - 1)
-    
-End Function
 Function GetNetDir(pobjObject As Form, plngWindowType As Long) As String
+Dim BI As BrowseInfo
+Dim IDL As ITEMIDLIST
+Dim pIdl As Long
+Dim sPath As String
+Dim SHFI As SHFILEINFO
+Dim lstrDisplayName As String
+'plngWindowType = 18
 
-    Dim path As String
-    If IsVistaOrHigher() Then
-        GetNetDir = SHGetSpecialFolderLocationVB(plngWindowType)
-    Else
-        GetNetDir = GetSpecialFolder(plngWindowType)
+    With BI
+        .hwndOwner = pobjObject.hwnd
+        If SHGetSpecialFolderLocation(ByVal pobjObject.hwnd, ByVal plngWindowType, IDL) = NOERROR Then
+            .pIDLRoot = IDL.mkid.cb
+        End If
+        .pszDisplayName = String$(MAX_PATH, 0)
+        .lpszTitle = "Please select a Server Folder!"
+        .ulFlags = BIF_RETURNONLYFSDIRS 'GetReturnType()
+    End With
+    
+    ' Show the Browse dialog
+    pIdl = SHBrowseForFolder(BI)
+    
+    If pIdl = 0 Then Exit Function
+    
+    sPath = String$(MAX_PATH, 0)
+    SHGetPathFromIDList ByVal pIdl, ByVal sPath
+    
+    GetNetDir = Left(sPath, InStr(sPath, vbNullChar) - 1)
+    
+    lstrDisplayName = Left$(BI.pszDisplayName, InStr(BI.pszDisplayName, vbNullChar) - 1)
+    
+    If GetNetDir = "" Then
+        GetNetDir = "@\\" & lstrDisplayName
     End If
+                                 
+    If Right(GetNetDir, 1) <> "\" Then
+        GetNetDir = GetNetDir & "\"
+    End If
+    
+    If Right(GetNetDir, 2) = ":\" Then
+        GetNetDir = "@" & GetNetDir
+    End If
+    CoTaskMemFree pIdl
   
 End Function
 
@@ -770,7 +785,7 @@ Dim fileop As SHFILEOPSTRUCT
     ReDim foBuf(1 To lenFileop) ' the size of the structure.
     
     With fileop
-        .hWnd = pobjObject.hWnd
+        .hwnd = pobjObject.hwnd
         .wFunc = FO_COPY
         If Not IsMissing(pvarCustomText) Then
             .lpszProgressTitle = pvarCustomText
@@ -803,7 +818,7 @@ Sub DisableCloseButton(pobjForm As Form)
 Dim Ret As Long
 
     'Initailise Start
-    hMenu = GetSystemMenu(pobjForm.hWnd, 0)
+    hMenu = GetSystemMenu(pobjForm.hwnd, 0)
     MII.cbSize = Len(MII)
     MII.dwTypeData = String(80, 0)
     MII.cch = Len(MII.dwTypeData)
@@ -827,7 +842,7 @@ Dim Ret As Long
             Ret = SetIdCloseButton(ResetID)
         End If
     
-        Ret = SendMessage(pobjForm.hWnd, WM_NCACTIVATE, True, 0)
+        Ret = SendMessage(pobjForm.hwnd, WM_NCACTIVATE, True, 0)
     End If
     
 End Sub
@@ -997,4 +1012,6 @@ Dim llngYPos As Integer
     SetCursorPos llngXPos, llngYPos
     
 End Sub
+
+
 
