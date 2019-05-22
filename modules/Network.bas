@@ -43,7 +43,7 @@ Global Const gtblMasterPADAvailable = "PADAvailableMaster"
 Global Const gtblMasterPADOffice = "PADOfficeMaster"
 Global Const gtblMasterPADOpeningTimes = "PADOpening_TimesMaster"
 
-Sub InitDb()
+Sub InitDb(Optional pstrSpecificStaticLdr As String = "")
 Dim lstrCentralDBInput As String
 Dim lstrLocalDBInput As String
 Dim lstrCentralTrainingDBInput As String
@@ -51,10 +51,15 @@ Dim lvarErrorStage As Variant
     
     On Error GoTo ErrorHandler
     
+    Dim lstrStaticLdr As String: lstrStaticLdr = Trim$(App.Path) & "\" & gconstrStaticLdr
+    If pstrSpecificStaticLdr <> "" Then
+        lstrStaticLdr = pstrSpecificStaticLdr
+    End If
+    
     lvarErrorStage = 140
 
-    If UCase(Dir(Trim$(App.Path) & "\" & gconstrStaticLdr, vbNormal)) = UCase(gconstrStaticLdr) Then
-        CheckStaticCipher
+    If UCase(Dir(lstrStaticLdr)) = UCase(gconstrStaticLdr) Then
+        CheckStaticCipher pstrSpecificStaticLdr
         gstrStatic.strUnlockCode = ""
     Else
         lvarErrorStage = 150

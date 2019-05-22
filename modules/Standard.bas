@@ -199,17 +199,18 @@ Sub WriteBuffer(pstring As String)
         .strPFElecFile = ReturnNthStr(pstring, 25, Chr(182))
         .strVerLogBStatus = ReturnNthStr(pstring, 26, Chr(182))
         
-        .strPrograms(0).strProgram = ReturnNthStr(pstring, 28, Chr(182))
-        .strPrograms(0).strParam = ReturnNthStr(pstring, 29, Chr(182))
-        .strPrograms(0).strDesc = ReturnNthStr(pstring, 30, Chr(182))
+        .strPrograms(0).strProgram = ReturnNthStr(pstring, 27, Chr(182))
+        .strPrograms(0).strParam = ReturnNthStr(pstring, 28, Chr(182))
+        .strPrograms(0).strDesc = ReturnNthStr(pstring, 29, Chr(182))
         
-        .strPrograms(1).strProgram = ReturnNthStr(pstring, 31, Chr(182))
-        .strPrograms(1).strParam = ReturnNthStr(pstring, 32, Chr(182))
-        .strPrograms(1).strDesc = ReturnNthStr(pstring, 33, Chr(182))
+        .strPrograms(1).strProgram = ReturnNthStr(pstring, 30, Chr(182))
+        .strPrograms(1).strParam = ReturnNthStr(pstring, 31, Chr(182))
+        .strPrograms(1).strDesc = ReturnNthStr(pstring, 32, Chr(182))
         
-        .strPrograms(2).strProgram = ReturnNthStr(pstring, 34, Chr(182))
-        .strPrograms(2).strParam = ReturnNthStr(pstring, 35, Chr(182))
-        .strPrograms(2).strDesc = ReturnNthStr(pstring, 36, Chr(182))
+        .strPrograms(2).strProgram = ReturnNthStr(pstring, 33, Chr(182))
+        .strPrograms(2).strParam = ReturnNthStr(pstring, 34, Chr(182))
+        .strPrograms(2).strDesc = ReturnNthStr(pstring, 35, Chr(182))
+        
         .strUnlockCode = ReturnNthStr(pstring, 37, Chr(182))
     End With
    

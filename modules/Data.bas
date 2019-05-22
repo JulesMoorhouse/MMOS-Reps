@@ -255,7 +255,7 @@ Dim lstrSQL As String
     End If
     
     If UCase$(App.ProductName) = "CLIENT" Then
-        If NewPADAvailable(True) Then
+        If False Then ' DEV NOTE 2019: Add Post Office Address file data NewPADAvailable(True) Then
             If pbooNoStatus = False Then ShowStatus 130
             gdatLocalDatabase.Execute "DELETE * FROM " & gtblPADAvailable & ";"
             gdatLocalDatabase.Execute "DELETE * FROM " & gtblPADOffice & ";"
@@ -1780,12 +1780,12 @@ Dim lstrSQL As String
       
     Select Case pstrParam
     Case "B"
-        lstrSQL = lstrSQL & ", " & gtblAdviceNotes & ".DespatchDate = '" & Format(date, "DD/MMM/YYYY") & "' "
+        lstrSQL = lstrSQL & ", " & gtblAdviceNotes & ".DespatchDate = '" & Format(Date, "DD/MMM/YYYY") & "' "
         lstrSQL = lstrSQL & "WHERE " & gtblAdviceNotes & ".OrderStatus ='B' "
         lstrSQL = lstrSQL & "AND (" & gtblAdviceNotes & ".CreationDate < #" & Format$(pdatEndDate, "DD/MMM/YYYY") & "# "
         lstrSQL = lstrSQL & "or " & gtblAdviceNotes & ".CreationDate = #" & Format$(pdatEndDate, "DD/MMM/YYYY") & "# );"
     Case "C"
-        lstrSQL = lstrSQL & ", " & gtblAdviceNotes & ".DespatchDate = '" & Format(date, "DD/MMM/YYYY") & "' "
+        lstrSQL = lstrSQL & ", " & gtblAdviceNotes & ".DespatchDate = '" & Format(Date, "DD/MMM/YYYY") & "' "
         lstrSQL = lstrSQL & "WHERE " & gtblAdviceNotes & ".OrderStatus ='C' "
         lstrSQL = lstrSQL & "AND (" & gtblAdviceNotes & ".CreationDate < #" & Format$(pdatEndDate, "DD/MMM/YYYY") & "# "
         lstrSQL = lstrSQL & "or " & gtblAdviceNotes & ".CreationDate = #" & Format$(pdatEndDate, "DD/MMM/YYYY") & "# );"
@@ -1809,7 +1809,7 @@ Dim lstrSQL As String
     Case "S" ' Update  for specfic OrderNum
         Select Case pstrStatus
         Case "B", "C"
-            lstrSQL = lstrSQL & ", " & gtblAdviceNotes & ".DespatchDate = '" & Format(date, "DD/MMM/YYYY") & "' "
+            lstrSQL = lstrSQL & ", " & gtblAdviceNotes & ".DespatchDate = '" & Format(Date, "DD/MMM/YYYY") & "' "
             lstrSQL = lstrSQL & "WHERE " & gtblAdviceNotes & ".OrderNum= " & plngOrderNum & ";"
         Case Else
             lstrSQL = lstrSQL & "WHERE " & gtblAdviceNotes & ".OrderNum= " & plngOrderNum & ";"
@@ -1821,7 +1821,7 @@ Dim lstrSQL As String
     End Select
 
     If pstrStatus = "B" And gstrStatic.strVerLogBStatus <> "" Then
-        ErrorLogging Now() & " BSTAT-" & "V" & App.major & "." & App.minor & "." & App.Revision & " " & gstrGenSysInfo.strUserName & " " & lstrSQL
+        ErrorLogging Now() & " BSTAT-" & "V" & App.Major & "." & App.Minor & "." & App.Revision & " " & gstrGenSysInfo.strUserName & " " & lstrSQL
     End If
     
     gdatCentralDatabase.Execute lstrSQL
@@ -2086,7 +2086,7 @@ Dim lcurOriginalReconcil As Currency
         
         'Add to new refund fields
         lstrSQL = "UPDATE " & gtblAdviceNotes & " SET RefundOrignNum = " & plngOrderNum & ", " & _
-            "RefundReason = '" & pstrReason & "', ChequeRequestDate = #" & Format(date, "dd/mmm/yyyy") & "# " & _
+            "RefundReason = '" & pstrReason & "', ChequeRequestDate = #" & Format(Date, "dd/mmm/yyyy") & "# " & _
             "WHERE CustNum=" & plngCustomerNum & " AND OrderNum=" & .lngOrderNum & ";"
         gdatCentralDatabase.Execute lstrSQL
         UpdateOrderStatus "R", 0, "S", .lngOrderNum
@@ -2250,7 +2250,7 @@ Dim lbooDeductFromCreditCard As Boolean
             End If
             .strReconcilliation = SystemPrice(CCur(CCur(lstrTotalNonCardPayments) + CCur(lstrTotalCardPayments)) - CCur(gstrOrderTotal))
             .strUnderpayment = SystemPrice("0")
-            .datDespatchDate = Format(date, "DD/MMM/YYYY")
+            .datDespatchDate = Format(Date, "DD/MMM/YYYY")
 
             UpdateAdviceNote
             If lbooDeductFromCreditCard = False Then
@@ -2260,7 +2260,7 @@ Dim lbooDeductFromCreditCard As Boolean
             'if payments are greater than order total
             .strUnderpayment = SystemPrice(CCur(gstrOrderTotal) - (CCur(lstrTotalNonCardPayments) + CCur(lstrTotalCardPayments)))
             .strReconcilliation = SystemPrice("0")
-            .datDespatchDate = Format(date, "DD/MMM/YYYY")
+            .datDespatchDate = Format(Date, "DD/MMM/YYYY")
 
             UpdateAdviceNote
             If lbooDeductFromCreditCard = False Then
