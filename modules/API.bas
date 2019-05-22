@@ -85,6 +85,7 @@ Declare Function WritePrivateProfileString Lib "KERNEL32" Alias "WritePrivatePro
 Declare Function apiCopyFile Lib "KERNEL32" Alias "CopyFileA" (ByVal lpExistingFileName As String, ByVal lpNewFileName As String, ByVal bFailIfExists As Long) As Long
 
 'GetNetDir calls Start
+Public Const CSIDL_NETWORK As Long = &H12
 Private Const BIF_RETURNONLYFSDIRS = 1
 Private Const BIF_DONTGOBELOWDOMAIN = 2
 Public Const MAX_PATH = 260
