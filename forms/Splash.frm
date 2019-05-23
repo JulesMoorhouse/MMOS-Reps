@@ -117,7 +117,7 @@ Begin VB.Form frmSplash
    Begin VB.Label lblCompany 
       Alignment       =   1  'Right Justify
       BackStyle       =   0  'Transparent
-      Caption         =   "Copyright ï¿½  Mindwarp Consultancy Ltd 2002"
+      Caption         =   "Copyright ©  Mindwarp Consultancy Ltd 2002"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   8.25
@@ -615,7 +615,7 @@ Dim lintArrInc As Integer
     On Error Resume Next
     lblVersion.Caption = "Version " & App.Major & "." & App.Minor & "." & App.Revision
     
-    Me.WindowState = vbNormal 
+    Me.WindowState = vbNormal
     
     lblProductName = gconstrProductShortName & " " & App.ProductName
     
@@ -628,7 +628,7 @@ Dim lintArrInc As Integer
         Next lintArrInc
     Case "LITE"
         
-        lblProductName = "Lite / Demo Version" 
+        lblProductName = "Lite / Demo Version"
         lblProductName.Visible = True
         For lintArrInc = 0 To 12
             lblBox(lintArrInc).Visible = True
@@ -686,7 +686,7 @@ Dim llngColourInc As Long
         lstrRGorB = "BLUE"
         llngColourInc = 2
     Case "LILAC"
-        llngDefR = 194:         llngDefG = 190:         llngDefB = 244 
+        llngDefR = 194:         llngDefG = 190:         llngDefB = 244
         lstrRGorB = "GREEN"
         llngColourInc = -5
     End Select
