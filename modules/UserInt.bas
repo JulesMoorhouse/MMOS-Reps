@@ -284,11 +284,14 @@ Global Const gconstrFinance = "FINANCE"
 Global Const gconstrLiteValues = "LITEVALUES"
 Global Const gconstrLiteProducts = "LITEPRODUCTS"
 Global Const gconstrLiteEssential = "LITEESSENTIAL"
+
 'Admin Use
 Global Const gconstrReferenceData = "REFDATA"
 Global Const gconstrStockManagement = "STOCKMAN"
 Global Const gconstrSystemOptions = "SYSOPTS"
 Global Const gconstrSystemManagement = "SYSMAN"
+Global Const gconstrAdminRoute = "ADMINROUTE"
+Global Const gconstrConfigRoute = "CONFIGROUTE"
 Global gstrRefDataSubTitle1 As String
 Global gstrRefDataSubTitle2 As String
 Global gintRefDataSubButton As Integer
@@ -303,8 +306,10 @@ Global Const gconstrDuplicateHandling = "DUPHAND"
 Global Const gconstrThermalPrintRun = "THERMALRUN"
 Global Const gconstrConsignmentNorm = "CONSIGNNORM"
 
-Global Const gconstrAdminRoute = "ADMINROUTE"
-Global Const gconstrConfigRoute = "CONFIGROUTE"
+'Configure
+Global Const gconstrConfigNetInstall = "CONFNETINSTALL"
+Global Const gconstrConfigFilesPaths = "CONFFILESPATHS"
+Global Const gconstrConfigTables = "CONFTABLES"
 
 '----MDI Form constants
 Global gconUITopPos As Long
@@ -740,6 +745,8 @@ Const gconUIRefData = "Reference Data"
         lstrBannerTitle = "Order Maintenence" & vbCr & gconUISpace
     Case gconstrFinance
         lstrBannerTitle = "Finance" & vbCr & gconUISpace
+    Case gconstrConfigNetInstall, gconstrConfigFilesPaths, gconstrConfigTables
+        lstrBannerTitle = "MMOS Configuration" & vbCr & gconUISpace
     End Select
     
     Select Case lstrFormName
@@ -910,6 +917,15 @@ Const gconUIRefData = "Reference Data"
     Case "frmLiteSettings"
         lstrBannerTitle = "Essential Settings" & vbCr & gconUISpace
         lintBannerPicIndex = 31
+    Case "frmConfigure"
+        lstrBannerTitle = lstrBannerTitle & "Files && Paths"
+        lintBannerPicIndex = 20
+    Case "frmTables"
+        lstrBannerTitle = lstrBannerTitle & "Database Tables"
+        lintBannerPicIndex = 26
+    Case "frmNetInstall"
+        lstrBannerTitle = lstrBannerTitle & "Network Install"
+        lintBannerPicIndex = 13
     End Select
     
     pfrmForm.ctlBanner1.Caption = lstrBannerTitle
@@ -1798,7 +1814,7 @@ Dim lintAlwaysMaximized As Integer
         With mdiMain.CommonDialog1
             .DialogTitle = "Print Setup"
             .CancelError = True
-            .Flags = cdlPDPrintSetup
+            .flags = cdlPDPrintSetup
             .ShowPrinter
         End With
     Case mdiMain.mnuFileExit.Caption

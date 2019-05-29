@@ -96,8 +96,8 @@ Begin VB.Form frmAbout
       TabIndex        =   1
       Top             =   7335
       Width           =   10485
-      _ExtentX        =   18494
-      _ExtentY        =   1244
+      _extentx        =   18494
+      _extenty        =   1244
    End
    Begin MMOS.ctlBanner ctlBanner1 
       Align           =   1  'Align Top
@@ -106,8 +106,27 @@ Begin VB.Form frmAbout
       TabIndex        =   0
       Top             =   0
       Width           =   10485
-      _ExtentX        =   18494
-      _ExtentY        =   1852
+      _extentx        =   18494
+      _extenty        =   1852
+   End
+   Begin VB.Label lblConfigure 
+      Alignment       =   2  'Center
+      Caption         =   "You must complete all three steps, shown on the left!"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FF0000&
+      Height          =   615
+      Left            =   3000
+      TabIndex        =   12
+      Top             =   2160
+      Width           =   7455
    End
    Begin VB.Label lblTrainingCard 
       Alignment       =   2  'Center
@@ -415,7 +434,7 @@ Dim lstrShowFeatures As String
     Else
         fraFeatures.Visible = False
     End If
-    If gdatCoverDate < date And gdatCoverDate <> "00:00:00" Then
+    If gdatCoverDate < Date And gdatCoverDate <> "00:00:00" Then
         lblCover = "Your cover has expired! " & gdatCoverDate & " " & gstrStatic.strUnlockCode
         lblCover.Visible = True
     End If
@@ -454,6 +473,10 @@ Public Sub Form_Resize()
         .Width = Me.Width - 3060
     End With
     
+    With lblConfigure
+        .Width = Me.Width - 3060
+    End With
+    
     With shpBacking
         .Left = Me.Left + 160
         .Height = (Me.Height - (705 + 1080)) - 180 ' - 340 '460
@@ -487,7 +510,7 @@ End Sub
 Private Sub lblMCLContact_Click()
 Dim StartDoc As Long
 
-     StartDoc = ShellExecute(Me.hwnd, "open", "mailto:email@example.com?Subject=MMOS (" & App.ProductName & " " & App.major & "." & App.minor & "." & App.Revision & ") Feedback", _
+     StartDoc = ShellExecute(Me.hwnd, "open", "mailto:email@example.com?Subject=MMOS (" & App.ProductName & " " & App.Major & "." & App.Minor & "." & App.Revision & ") Feedback", _
        "", "C:\", 1)
 
 End Sub

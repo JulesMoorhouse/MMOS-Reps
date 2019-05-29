@@ -69,83 +69,83 @@ Begin VB.Form frmButtons
             Key             =   ""
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":1BB4
+            Picture         =   "Buttons.frx":19FB
             Key             =   ""
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":20A4
+            Picture         =   "Buttons.frx":1EEB
             Key             =   ""
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":2678
+            Picture         =   "Buttons.frx":24BF
             Key             =   ""
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":283C
+            Picture         =   "Buttons.frx":2683
             Key             =   ""
          EndProperty
          BeginProperty ListImage16 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":29A4
+            Picture         =   "Buttons.frx":27EB
             Key             =   ""
          EndProperty
          BeginProperty ListImage17 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":2E78
+            Picture         =   "Buttons.frx":2CBF
             Key             =   ""
          EndProperty
          BeginProperty ListImage18 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":3080
+            Picture         =   "Buttons.frx":2EC7
             Key             =   ""
          EndProperty
          BeginProperty ListImage19 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":34E4
+            Picture         =   "Buttons.frx":332B
             Key             =   ""
          EndProperty
          BeginProperty ListImage20 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":366C
+            Picture         =   "Buttons.frx":34B3
             Key             =   ""
          EndProperty
          BeginProperty ListImage21 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":3B10
+            Picture         =   "Buttons.frx":3957
             Key             =   ""
          EndProperty
          BeginProperty ListImage22 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":3CCC
+            Picture         =   "Buttons.frx":3B13
             Key             =   ""
          EndProperty
          BeginProperty ListImage23 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":3EA0
+            Picture         =   "Buttons.frx":3CE7
             Key             =   ""
          EndProperty
          BeginProperty ListImage24 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":4300
+            Picture         =   "Buttons.frx":4147
             Key             =   ""
          EndProperty
          BeginProperty ListImage25 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":4428
+            Picture         =   "Buttons.frx":426F
             Key             =   ""
          EndProperty
          BeginProperty ListImage26 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":4940
+            Picture         =   "Buttons.frx":4787
             Key             =   ""
          EndProperty
          BeginProperty ListImage27 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":4B74
+            Picture         =   "Buttons.frx":49BB
             Key             =   ""
          EndProperty
          BeginProperty ListImage28 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":4D64
+            Picture         =   "Buttons.frx":4BAB
             Key             =   ""
          EndProperty
          BeginProperty ListImage29 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":4F78
+            Picture         =   "Buttons.frx":4DBF
             Key             =   ""
          EndProperty
          BeginProperty ListImage30 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":5194
+            Picture         =   "Buttons.frx":4FDB
             Key             =   ""
          EndProperty
          BeginProperty ListImage31 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "Buttons.frx":5348
+            Picture         =   "Buttons.frx":518F
             Key             =   ""
          EndProperty
       EndProperty
@@ -153,7 +153,7 @@ Begin VB.Form frmButtons
    Begin VB.Image imgHelpWhatsThis 
       Height          =   225
       Left            =   1920
-      Picture         =   "Buttons.frx":54CC
+      Picture         =   "Buttons.frx":5313
       Top             =   600
       Width           =   240
    End
