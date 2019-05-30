@@ -687,8 +687,8 @@ Dim lbooDocopy As Boolean
         If FileDateTime(pstrSourceFile) > FileDateTime(pstrDestinationFile) Then
             lbooDocopy = True
         End If
-    Else
-        lbooDocopy = True
+    'Else
+    '    lbooDocopy = True
     End If
     If lbooDocopy Then
 '        frmMain.sbStatusBar.Panels(1).Text = "Copying " & pstrSourceFile
