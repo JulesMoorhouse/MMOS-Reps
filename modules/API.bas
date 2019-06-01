@@ -18,11 +18,11 @@ Declare Function GetSystemDirectory Lib "KERNEL32" Alias "GetSystemDirectoryA" _
 (ByVal lstrBuffer As String, ByVal llngsize As Long) As Long
 
 Public Declare Function GetWindowsDirectory Lib "KERNEL32" Alias "GetWindowsDirectoryA" (ByVal lpBuffer As String, ByVal nSize As Long) As Long
-Public Declare Function CloseWindow Lib "user32" (ByVal hwnd As Long) As Long
-Public Declare Function FindWindow Lib "user32" Alias "FindWindowA" (ByVal lpClassName As String, ByVal lpWindowName As String) As Long
-Declare Function ShowWindow Lib "user32" (ByVal hwnd As Long, ByVal nCmdShow As Long) As Long
+Public Declare Function CloseWindow Lib "User32" (ByVal hwnd As Long) As Long
+Public Declare Function FindWindow Lib "User32" Alias "FindWindowA" (ByVal lpclassname As String, ByVal lpWindowName As String) As Long
+Declare Function ShowWindow Lib "User32" (ByVal hwnd As Long, ByVal nCmdShow As Long) As Long
 
-Public Declare Function DestroyWindow Lib "user32" (ByVal hwnd As Long) As Long
+Public Declare Function DestroyWindow Lib "User32" (ByVal hwnd As Long) As Long
 
 Public Declare Function OSfCreateShellLink Lib "VB6STKIT.DLL" Alias "fCreateShellLink" (ByVal lpstrFolderName As String, ByVal lpstrLinkName As String, ByVal lpstrLinkPath As String, ByVal lpstrLinkArguments As String, ByVal fPrivate As Long, ByVal sParent As String) As Long
 Public Declare Function GetUserName Lib "advapi32.dll" Alias "GetUserNameA" (ByVal lpBuffer As String, nSize As Long) As Long
@@ -74,6 +74,8 @@ Public Declare Function CreateProcessA Lib "KERNEL32" (ByVal _
 Public Declare Function ShellExecute Lib "Shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
 Public Declare Function CloseHandle Lib "KERNEL32" (ByVal hObject As Long) As Long
 
+Public Declare Function apiFindWindow Lib "User32" Alias "FindWindowA" (ByVal lpclassname As Any, ByVal lpCaption As Any)
+   
 Public Const NORMAL_PRIORITY_CLASS = &H20&
 Public Const INFINITE = -1&
 
@@ -196,10 +198,10 @@ Public Type MENUITEMINFO
     cch           As Long
 End Type
 'Declarations.
-Public Declare Function GetSystemMenu Lib "user32" (ByVal hwnd As Long, ByVal bRevert As Long) As Long
-Public Declare Function GetMenuItemInfo Lib "user32" Alias "GetMenuItemInfoA" (ByVal hMenu As Long, ByVal un As Long, ByVal b As Boolean, lpMenuItemInfo As MENUITEMINFO) As Long
-Public Declare Function SetMenuItemInfo Lib "user32" Alias "SetMenuItemInfoA" (ByVal hMenu As Long, ByVal un As Long, ByVal bool As Boolean, lpcMenuItemInfo As MENUITEMINFO) As Long
-Public Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
+Public Declare Function GetSystemMenu Lib "User32" (ByVal hwnd As Long, ByVal bRevert As Long) As Long
+Public Declare Function GetMenuItemInfo Lib "User32" Alias "GetMenuItemInfoA" (ByVal hMenu As Long, ByVal un As Long, ByVal b As Boolean, lpMenuItemInfo As MENUITEMINFO) As Long
+Public Declare Function SetMenuItemInfo Lib "User32" Alias "SetMenuItemInfoA" (ByVal hMenu As Long, ByVal un As Long, ByVal bool As Boolean, lpcMenuItemInfo As MENUITEMINFO) As Long
+Public Declare Function SendMessage Lib "User32" Alias "SendMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
 'Application-specific constants and variables.
 Public Const xSC_CLOSE  As Long = -10
 Public Const SwapID     As Long = 1
@@ -254,9 +256,9 @@ End Type
 Public glngPrevWndProc As Long
 Global gHW As Long
 
-Public Declare Function DefWindowProc Lib "user32" Alias "DefWindowProcA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
-Public Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcA" (ByVal lpPrevWndFunc As Long, ByVal hwnd As Long, ByVal Msg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
-Public Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
+Public Declare Function DefWindowProc Lib "User32" Alias "DefWindowProcA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
+Public Declare Function CallWindowProc Lib "User32" Alias "CallWindowProcA" (ByVal lpPrevWndFunc As Long, ByVal hwnd As Long, ByVal Msg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
+Public Declare Function SetWindowLong Lib "User32" Alias "SetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
 Public Declare Sub CopyMemoryToMinMaxInfo Lib "KERNEL32" Alias "RtlMoveMemory" (hpvDest As MINMAXINFO, ByVal hpvSource As Long, ByVal cbCopy As Long)
 Public Declare Sub CopyMemoryFromMinMaxInfo Lib "KERNEL32" Alias "RtlMoveMemory" (ByVal hpvDest As Long, hpvSource As MINMAXINFO, ByVal cbCopy As Long)
 
@@ -291,20 +293,20 @@ Public Const MF_GRAYED = &H1&
 Public Const MF_UNGRAYED = &H0
 Public Const MF_BYCOMMAND = &H0&
 
-Public Declare Function CreateMenu Lib "user32" () As Long
-Public Declare Function CreatePopupMenu Lib "user32" () As Long
-Public Declare Function AppendMenu Lib "user32" Alias "AppendMenuA" (ByVal hMenu As Long, ByVal wFlags As Long, ByVal wIDNewItem As Long, ByVal lpNewItem As Any) As Long
-Public Declare Function SetMenu Lib "user32" (ByVal hwnd As Long, ByVal hMenu As Long) As Long
+Public Declare Function CreateMenu Lib "User32" () As Long
+Public Declare Function CreatePopupMenu Lib "User32" () As Long
+Public Declare Function AppendMenu Lib "User32" Alias "AppendMenuA" (ByVal hMenu As Long, ByVal wFlags As Long, ByVal wIDNewItem As Long, ByVal lpNewItem As Any) As Long
+Public Declare Function SetMenu Lib "User32" (ByVal hwnd As Long, ByVal hMenu As Long) As Long
 'Public Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
 'Public Declare Function CallWindowProc Lib "user32" Alias "CallWindowProcA" (ByVal lpPrevWndFunc As Long, ByVal hwnd As Long, ByVal Msg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
-Public Declare Function DestroyMenu Lib "user32" (ByVal hMenu As Long) As Long
+Public Declare Function DestroyMenu Lib "User32" (ByVal hMenu As Long) As Long
 Global glngUIRetMenu As Long
 '----Dynamic Menu stuff
 
 'App Instance stuff
-Declare Function GetWindowText Lib "user32" Alias "GetWindowTextA" (ByVal hwnd As Long, ByVal lpString As String, ByVal cch As Long) As Long
-Declare Function GetWindow Lib "user32" (ByVal hwnd As Long, ByVal wCmd As Long) As Long
-Declare Function GetTopWindow Lib "user32" (ByVal hwnd As Long) As Long
+Declare Function GetWindowText Lib "User32" Alias "GetWindowTextA" (ByVal hwnd As Long, ByVal lpString As String, ByVal cch As Long) As Long
+Declare Function GetWindow Lib "User32" (ByVal hwnd As Long, ByVal wCmd As Long) As Long
+Declare Function GetTopWindow Lib "User32" (ByVal hwnd As Long) As Long
 Public Const GW_HWNDNEXT = 2
 
 'reporting and screen
@@ -320,7 +322,7 @@ Public Const PHYSICALHEIGHT = 111
 Public Const PHYSICALOFFSETX = 112
 Public Const PHYSICALOFFSETY = 113
 
-Private Declare Function SetCursorPos Lib "user32" (ByVal X As Long, ByVal Y As Long) As Long
+Private Declare Function SetCursorPos Lib "User32" (ByVal X As Long, ByVal Y As Long) As Long
 
 Public Function DriveType(sDrive As String) As String
 Dim sDriveName As String
