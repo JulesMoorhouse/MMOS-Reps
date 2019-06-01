@@ -755,6 +755,8 @@ Private Sub Form_Load()
     
     ShowBanner Me, Me.Route
     
+    SetupHelpFileReqs
+    
 End Sub
 
 Private Sub Form_Paint()
