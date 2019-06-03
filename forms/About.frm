@@ -15,19 +15,19 @@ Begin VB.Form frmAbout
    Begin VB.Frame fraFeatures 
       BorderStyle     =   0  'None
       Caption         =   "Frame1"
-      Height          =   1755
+      Height          =   2460
       Left            =   2985
-      TabIndex        =   6
-      Top             =   5580
+      TabIndex        =   5
+      Top             =   5575
       Width           =   7555
       Begin VB.ListBox lstNewFeatures 
          Appearance      =   0  'Flat
          BackColor       =   &H8000000F&
-         Height          =   1500
+         Height          =   2205
          IntegralHeight  =   0   'False
          Left            =   0
-         TabIndex        =   8
-         Top             =   255
+         TabIndex        =   7
+         Top             =   240
          Width           =   7550
       End
       Begin VB.CheckBox chkAllProgs 
@@ -46,7 +46,7 @@ Begin VB.Form frmAbout
          ForeColor       =   &H80000009&
          Height          =   285
          Left            =   5760
-         TabIndex        =   9
+         TabIndex        =   8
          TabStop         =   0   'False
          Top             =   0
          Width           =   1455
@@ -64,7 +64,7 @@ Begin VB.Form frmAbout
          EndProperty
          Height          =   240
          Left            =   7290
-         TabIndex        =   7
+         TabIndex        =   6
          TabStop         =   0   'False
          Top             =   20
          Width           =   260
@@ -84,20 +84,10 @@ Begin VB.Form frmAbout
          ForeColor       =   &H80000009&
          Height          =   255
          Left            =   0
-         TabIndex        =   10
+         TabIndex        =   9
          Top             =   0
          Width           =   7555
       End
-   End
-   Begin MMOS.ctlBottomLine ctlBottomLine1 
-      Align           =   2  'Align Bottom
-      Height          =   705
-      Left            =   0
-      TabIndex        =   1
-      Top             =   7335
-      Width           =   10485
-      _extentx        =   18494
-      _extenty        =   1244
    End
    Begin MMOS.ctlBanner ctlBanner1 
       Align           =   1  'Align Top
@@ -106,8 +96,8 @@ Begin VB.Form frmAbout
       TabIndex        =   0
       Top             =   0
       Width           =   10485
-      _extentx        =   18494
-      _extenty        =   1852
+      _ExtentX        =   18494
+      _ExtentY        =   1852
    End
    Begin VB.Label lblConfigure 
       Alignment       =   2  'Center
@@ -124,7 +114,7 @@ Begin VB.Form frmAbout
       ForeColor       =   &H00FF0000&
       Height          =   615
       Left            =   3000
-      TabIndex        =   12
+      TabIndex        =   11
       Top             =   2160
       Width           =   7455
    End
@@ -148,7 +138,7 @@ Begin VB.Form frmAbout
       Left            =   3120
       MouseIcon       =   "About.frx":0000
       MousePointer    =   99  'Custom
-      TabIndex        =   11
+      TabIndex        =   10
       ToolTipText     =   "Click me to make contact"
       Top             =   1440
       Width           =   1425
@@ -275,8 +265,8 @@ Begin VB.Form frmAbout
       BorderWidth     =   10
       FillColor       =   &H00C00000&
       FillStyle       =   0  'Solid
-      Height          =   6195
-      Left            =   100
+      Height          =   6795
+      Left            =   105
       Top             =   1125
       Width           =   2775
    End
@@ -286,7 +276,7 @@ Begin VB.Form frmAbout
       Caption         =   "program or its sister programs, please email :-"
       Height          =   255
       Left            =   3060
-      TabIndex        =   5
+      TabIndex        =   4
       Top             =   3960
       Width           =   7545
    End
@@ -306,7 +296,7 @@ Begin VB.Form frmAbout
       ForeColor       =   &H000000FF&
       Height          =   615
       Left            =   3000
-      TabIndex        =   4
+      TabIndex        =   3
       Top             =   4680
       Visible         =   0   'False
       Width           =   7545
@@ -316,7 +306,7 @@ Begin VB.Form frmAbout
       Appearance      =   0  'Flat
       BackColor       =   &H80000005&
       BackStyle       =   0  'Transparent
-      Caption         =   "email@example.com"
+      Caption         =   "web address"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   9.75
@@ -328,13 +318,13 @@ Begin VB.Form frmAbout
       EndProperty
       ForeColor       =   &H00FF0000&
       Height          =   375
-      Left            =   5580
+      Left            =   4080
       MouseIcon       =   "About.frx":030A
       MousePointer    =   99  'Custom
-      TabIndex        =   3
+      TabIndex        =   2
       ToolTipText     =   "Click me to make contact"
       Top             =   4320
-      Width           =   2475
+      Width           =   5475
    End
    Begin VB.Label Label2 
       Alignment       =   2  'Center
@@ -342,7 +332,7 @@ Begin VB.Form frmAbout
       Caption         =   "If you have any comments or suggestions about this"
       Height          =   255
       Left            =   3060
-      TabIndex        =   2
+      TabIndex        =   1
       Top             =   3600
       Width           =   7545
    End
@@ -409,6 +399,8 @@ Dim lstrShowFeatures As String
     
     lvarOrigBackcolor = lblMCLContact.ForeColor
         
+    lblMCLContact.Caption = gstrOurContactWeb
+    
     ShowBanner frmAbout, ""
     gstrButtonRoute = gconstrMainMenu
     mdiMain.DrawButtonSet gstrButtonRoute
@@ -434,6 +426,11 @@ Dim lstrShowFeatures As String
     Else
         fraFeatures.Visible = False
     End If
+    
+    If UCase$(App.ProductName) <> "CONFIGURE" Then
+        lblConfigure.Visible = False
+    End If
+    
     If gdatCoverDate < Date And gdatCoverDate <> "00:00:00" Then
         lblCover = "Your cover has expired! " & gdatCoverDate & " " & gstrStatic.strUnlockCode
         lblCover.Visible = True
@@ -479,10 +476,11 @@ Public Sub Form_Resize()
     
     With shpBacking
         .Left = Me.Left + 160
-        .Height = (Me.Height - (705 + 1080)) - 180 ' - 340 '460
+        .Height = (Me.Height - (0 + 1080)) - 180
     End With
     
     With fraFeatures
+        '.Top = ((Me.Height - 705) - 1755) - 100
         .Top = ((Me.Height - 705) - 1755) - 100
         .Left = shpBacking.Width + shpBacking.Left + 70 '50
         .Width = (Me.Width - .Left) - 110
@@ -506,11 +504,10 @@ Public Sub Form_Resize()
     MakeVisible Me, True
     
 End Sub
-
 Private Sub lblMCLContact_Click()
 Dim StartDoc As Long
 
-     StartDoc = ShellExecute(Me.hwnd, "open", "mailto:email@example.com?Subject=MMOS (" & App.ProductName & " " & App.Major & "." & App.Minor & "." & App.Revision & ") Feedback", _
+     StartDoc = ShellExecute(Me.hwnd, "open", gstrOurContactWeb, _
        "", "C:\", 1)
 
 End Sub

@@ -13,7 +13,9 @@ Global Const gstrOurAdd2 = "My Town"
 Global Const gstrOurAdd3 = "My County"
 Global Const gstrOurAdd4 = "AB 9ZZ"
 Global Const gstrOurTel = "(019) 285077 (Answering Service)"
-Global Const gstrOurCompanyWeb = "http://www.webaddress.co.uk"
+Global Const gstrOurCompanyWeb = "https://www.JulesMoorhouse.com"
+
+Global Const gstrOurContactWeb = "https://www.JulesMoorhouse.com/contactme"
 
 Global gstrIniAppName As String
 
