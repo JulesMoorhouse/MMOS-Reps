@@ -149,8 +149,9 @@ Sub SetSystemNames()
     Case srCompanyRoute, srCompanyDebugRoute
         If gstrSystemRoute = srCompanyDebugRoute Then
             If InStr(UCase(Command$), "/TEST") > 0 Then
-                gstrDBPasswords.strCentralDBPasswordString = ";Uid=Admin;pwd=password123" 'TODO: Change for production
-                gstrDBPasswords.strLocalDBPasswordString = ";Uid=Admin;pwd=password123"
+                'DEVNOTE: 2019 - removed
+                'gstrDBPasswords.strCentralDBPasswordString = ";Uid=Admin;pwd=password123" 'TODO: Change for production
+                'gstrDBPasswords.strLocalDBPasswordString = ";Uid=Admin;pwd=password123"
             Else
                 gstrSystemRoute = srCompanyRoute
             End If
@@ -161,8 +162,9 @@ Sub SetSystemNames()
         Else
             gstrIniAppName = "MMOS Lite"
         End If
-        gstrDBPasswords.strCentralDBPasswordString = ";Uid=Admin;pwd=password123"
-        gstrDBPasswords.strLocalDBPasswordString = ";Uid=Admin;pwd=password123"
+        'DEVNOTE: 2019 - removed
+        'gstrDBPasswords.strCentralDBPasswordString = ";Uid=Admin;pwd=password123"
+        'gstrDBPasswords.strLocalDBPasswordString = ";Uid=Admin;pwd=password123"
         
     End Select
 
