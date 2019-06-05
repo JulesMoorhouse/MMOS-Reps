@@ -77,14 +77,14 @@ Begin VB.Form frmLogin
             AutoSize        =   2
             Object.Width           =   1773
             MinWidth        =   1764
-            TextSave        =   "14/02/02"
+            TextSave        =   "05/06/2019"
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             AutoSize        =   2
             Object.Width           =   1773
             MinWidth        =   1764
-            TextSave        =   "16:41"
+            TextSave        =   "18:45"
          EndProperty
       EndProperty
    End
@@ -146,27 +146,44 @@ End Sub
 
 
 Private Sub cmdOK_Click()
-Dim lvarRetVal
+    
+    Dim lvarRetVal
+    Dim lintUserCount As Long
     
     With gstrGenSysInfo
         .strUserName = ProperCase$(Trim$(txtUserName))
-        If GetUser(Trim$(.strUserName), True) = False Then
+        
+        If GetUser(Trim$(.strUserName), lintUserCount, True) = False Then
             lvarRetVal = MsgBox("Your UserID has not been found!" & vbCrLf & _
                 "Would you like to add this new userID to the system?", vbYesNo + vbInformation, gconstrTitlPrefix & "User Login")
             If lvarRetVal = vbYes Then
                 'by default set to Order Entry
-                AddNewUser .strUserName, "My Full Name", 20, " ", " ", True
-                GetUser Trim$(.strUserName), True
+
+                If Trim$(txtPassword.Text & "") = "" Then
+                    MsgBox "Please enter a password you'd like to use with your new account!", , gconstrTitlPrefix & "User Login"
+                    Exit Sub
+                End If
+                
+                Dim lintUserLevel As Long: lintUserLevel = 20
+                Dim lstrUserLevel As String: lstrUserLevel = "Order Entry level"
+                
+                If lintUserCount = 0 Then
+                    lintUserLevel = 99
+                    lstrUserLevel = "Information Systems level (as you're the first user!)"
+                End If
+                
+                AddNewUser .strUserName, "My Full Name", lintUserLevel, txtPassword.Text, " ", True
+                GetUser Trim$(.strUserName), lintUserCount, True
+                
                 MsgBox "Your new UserID has been added!" & vbCrLf & vbCrLf & _
-                    "You password has been set to blank " & vbCrLf & _
-                    "and your user level has been set to " & vbCrLf & _
-                    "Order Entry level.", vbInformation, gconstrTitlPrefix & "User Login"
+                    "Your user level has been set to " & vbCrLf & _
+                    lstrUserLevel & ".", vbInformation, gconstrTitlPrefix & "User Login"
             Else
                 Exit Sub
             End If
         End If
-        
-        If Trim$(txtPassword.Text) = Trim$(.strUserPassword) Then
+
+        If Hash(Trim$(txtPassword.Text)) = Trim$(.strUserPassword) Then
             OK = True
             Me.Hide
             

@@ -1150,7 +1150,7 @@ Dim lstrDepugAppHelpFilePath As String
 
     If DebugVersion Then
         lintDebugVersion = MsgBox("Mindwarp (Standard ver) " & vbTab & "= Abort" & vbCrLf & _
-                                  "My Company                     " & vbTab & "= Retry" & vbCrLf & _
+                                  "My Company              " & vbTab & "= Retry" & vbCrLf & _
                                   "My Company SQL (Testing)" & vbTab & "= Ignore", vbAbortRetryIgnore + vbDefaultButton2)
         Select Case lintDebugVersion
         Case vbRetry

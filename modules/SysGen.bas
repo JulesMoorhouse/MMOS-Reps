@@ -265,7 +265,7 @@ Sub SetDBData(pstrTableAndFields() As TableAndFields)
  
     'Users
     With pstrTableAndFields(247): .strType = "10":     .strName = "UserID":    .strSize = "20":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
-    With pstrTableAndFields(248): .strType = "10":     .strName = "UserPassword":    .strSize = "20":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "True":    End With
+    With pstrTableAndFields(248): .strType = "10":     .strName = "UserPassword":    .strSize = "255":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "True":    End With
     With pstrTableAndFields(249): .strType = "10":     .strName = "UserName":    .strSize = "30":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "True":    End With
     With pstrTableAndFields(250): .strType = "4":     .strName = "UserLevel":    .strSize = "4":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With
     With pstrTableAndFields(251): .strType = "12":     .strName = "UserNotes":    .strSize = "0":    .strSourceTable = gtblUsers:    .strDataUpdatable = "True":    .strDefaultValue = "":    .strRequired = "False":    .strAllowZeroLength = "False":    End With

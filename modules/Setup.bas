@@ -433,7 +433,7 @@ Dim lintRetVal
         "before proceeding", vbYesNo, gconstrTitlPrefix & "Config")
     If lintRetVal <> vbYes Then Exit Sub
     
-    If UCase(Dir(Trim$(App.path) & "\" & gconstrStaticLdr, vbNormal)) = UCase(gconstrStaticLdr) Then
+    If UCase(Dir(Trim$(App.Path) & "\" & gconstrStaticLdr, vbNormal)) = UCase(gconstrStaticLdr) Then
         'get existing loader info, this will be used unless overwritten below
         CheckStaticCipher
         With gstrStatic
@@ -565,7 +565,9 @@ Dim lstrSQL As String
     End If
     
     On Error GoTo ErrHandler
-
+    
+    pstrPassword = Hash(pstrPassword)
+    
     lstrSQL = "INSERT INTO Users ( UserID, UserPassword, Username," & _
         "Userlevel, UserNotes ) select '" & _
         Trim$(pstrUserName) & "', '" & pstrPassword & "', '" & pstrFullName & _

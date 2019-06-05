@@ -45,7 +45,9 @@ Dim lstrSQL As String
     
     ShowStatus 79
     On Error GoTo ErrHandler
-
+    
+    pstrPassword = Hash(pstrPassword)
+    
     lstrSQL = "UPDATE " & gtblUsers & " SET UserPassword = '" & pstrPassword & _
         "', UserName = '" & pstrUserFullName & _
         "', UserLevel = " & plngUserLevel & _
@@ -70,7 +72,7 @@ ErrHandler:
     End Select
 
 End Sub
-Function GetUser(pstrUserName As String, Optional pbooNoStatus As Variant) As Boolean
+Function GetUser(pstrUserName As String, ByRef pintUserCount As Long, pbooNoStatus As String) As Boolean
 Dim lsnaLists As Recordset
 Dim lstrSQL As String
 Dim llngRecCount As Long
@@ -88,17 +90,28 @@ Dim llngRecCount As Long
     
     llngRecCount = 0
     
-    lstrSQL = "SELECT * from " & gtblUsers & " where UserId ='" & pstrUserName & "';"
+    'lstrSQL = "SELECT * from " & gtblUsers & " where UserId ='" & pstrUserName & "';"
+    
+    lstrSQL = "SELECT First(u1.UserID) AS UserID, " & _
+        "First(u1.UserName) AS UserName, " & _
+        "First(u1.UserPassword) AS UserPassword, " & _
+        "First(u1.UserLevel) AS UserLevel, " & _
+        "First(u1.UserNotes) AS UserNotes, " & _
+        "Count(u2.UserID) AS Count " & _
+        "FROM " & gtblUsers & " AS u1, " & gtblUsers & " AS u2 " & _
+        "where u1.userid = '" & pstrUserName & "';"
+    
     Set lsnaLists = gdatCentralDatabase.OpenRecordset(lstrSQL, dbOpenSnapshot)
     
     With lsnaLists
         If Not .EOF Then
             llngRecCount = llngRecCount + 1
-            gstrGenSysInfo.strUserName = .Fields("UserID") & "" ' & "" for these 5 fields 
+            gstrGenSysInfo.strUserName = .Fields("UserID") & "" ' & "" for these 5 fields
             gstrGenSysInfo.strUserFullName = .Fields("UserName") & ""
             gstrGenSysInfo.strUserPassword = .Fields("UserPassword") & ""
             gstrGenSysInfo.lngUserLevel = .Fields("UserLevel") & ""
             gstrGenSysInfo.strUserNotes = .Fields("UserNotes") & ""
+            pintUserCount = .Fields("Count") & ""
         End If
     End With
     
@@ -181,7 +194,7 @@ Dim start As STARTUPINFO
 Dim intReturnValue As Integer
 
 
-    If gstrSystemRoute = srStandardRoute Then 
+    If gstrSystemRoute = srStandardRoute Then
         lstrQAExe = FindProgram("AddressProg")
     ElseIf gstrSystemRoute = srCompanyRoute Or gstrSystemRoute = srCompanyDebugRoute Then
         lstrQAExe = FindProgram("QARAPID")
@@ -198,7 +211,7 @@ Dim intReturnValue As Integer
     
     '-ini "Configuration file name"
     '-section "Section name"
-    If gstrSystemRoute = srStandardRoute Then 
+    If gstrSystemRoute = srStandardRoute Then
         FileCopy gstrStatic.strServerPath & "QAMMOS.ini", Justpath(lstrQAExe) & "QAMMOS.INI"
         lstrParams = " -ini " & Justpath(lstrQAExe) & "QAMMOS.ini" & " -section MMOS"
     ElseIf gstrSystemRoute = srCompanyRoute Or gstrSystemRoute = srCompanyDebugRoute Then

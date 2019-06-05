@@ -459,16 +459,16 @@ Dim lstrCustName As String
     cmdConfirm.Enabled = False
     dbgOrderLinesMaster.Enabled = False
 
-    On Error Resume Next 
-    AddNewFileHistoryItem llngCustomerNum, llngOrderNum, lblName, "Packed" 
+    On Error Resume Next
+    AddNewFileHistoryItem llngCustomerNum, llngOrderNum, lblName, "Packed"
 
 End Sub
 
 Private Sub cmdFind_Click()
 Dim lbooCanConfirm As Boolean
-Dim lstrOrderStatus As String 
+Dim lstrOrderStatus As String
 
-    If Val(txtSearchCriteria) <> 0 Then 
+    If Val(txtSearchCriteria) <> 0 Then
         Busy True, Me
         
         datOrderLineMaster.RecordSource = "select * from " & gtblMasterOrderLines & " where OrderNum = " & CLng(txtSearchCriteria) & " Order by OrderLineNum, BinLocation"
@@ -481,7 +481,7 @@ Dim lstrOrderStatus As String
             GetAcOrdNums
             GetAdviceNote llngCustomerNum, llngOrderNum
             GetLocalFields
-            lblOrderStatus = lstrOrderStatus 
+            lblOrderStatus = lstrOrderStatus
             Busy False, Me
         Else
             Busy False, Me
@@ -522,15 +522,15 @@ Dim llngOrderNum As Long
         Exit Sub
     End If
     
-    If UCase$(App.ProductName) = "LITE" Then 
-        ChooseLayout ltAdviceWithAddress, Me 
+    If UCase$(App.ProductName) = "LITE" Then
+        ChooseLayout ltAdviceWithAddress, Me
     Else
-        ChooseLayout ltAdviceNote, Me 
+        ChooseLayout ltAdviceNote, Me
     End If
     
-    Busy True, Me 
+    Busy True, Me
     
-    PrintObjAdviceNotesGeneral 0, 0, "S", llngOrderNum, , lblOrderStatus 
+    PrintObjAdviceNotesGeneral 0, 0, "S", llngOrderNum, , lblOrderStatus
     
     Busy False, Me
     ShowPlotReport
@@ -545,10 +545,6 @@ Private Sub Form_Activate()
     End If
     
 End Sub
-Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
-    
-End Sub
-
 Private Sub Form_Load()
 
     If gbooJustPreLoading Then
@@ -575,7 +571,7 @@ Private Sub Form_Load()
 
     ShowBanner Me, Me.Route
     
-    SetupHelpFileReqs 
+    SetupHelpFileReqs
     
 Exit Sub
 ErrHandler:
@@ -599,13 +595,13 @@ End Sub
 
 Private Sub Form_Resize()
     
-    On Error Resume Next     
+    On Error Resume Next
     With cmdBack
         .Top = Me.Height - gconlongButtonTop
         .Left = Me.Width - 1545
     End With
     
-    With cmdHelpWhat 
+    With cmdHelpWhat
         .Top = Me.Height - gconlongButtonTop
         .Left = 120
     End With
@@ -625,7 +621,7 @@ Private Sub Form_Resize()
     End With
     
     With dbgOrderLinesMaster
-        .Width = Me.Width - 360 
+        .Width = Me.Width - 360
         If (cmdHelp.Top - .Top) > 665 Then
             .Height = (cmdHelp.Top - .Top) - 665
         Else

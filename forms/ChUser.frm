@@ -209,7 +209,7 @@ Private Sub cmdSave_Click()
     Case "ADD"
     Case "PASSCHANGE"
         With gstrGenSysInfo
-            If Trim$(.strUserPassword) <> Trim$(txtPassword) Then
+            If Trim$(.strUserPassword) <> Hash(Trim$(txtPassword)) Then
                 MsgBox "This is not your current password! Please try again!", vbInformation, gconstrTitlPrefix & "User Access Details"
                 txtPassword.SetFocus
                 txtPassword.SelStart = 0
