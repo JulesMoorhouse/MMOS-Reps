@@ -236,13 +236,13 @@ Begin VB.Form frmMainReps
       EndProperty
       ForeColor       =   &H00FF0000&
       Height          =   375
-      Left            =   5580
+      Left            =   4580
       MouseIcon       =   "Main.frx":0637
       MousePointer    =   99  'Custom
       TabIndex        =   4
       ToolTipText     =   "Click me to make contact"
       Top             =   4320
-      Width           =   2475
+      Width           =   4475
    End
    Begin VB.Label lblCover 
       Alignment       =   2  'Center
@@ -436,6 +436,9 @@ Dim lstrShowFeatures As String
     mdiMain.DrawButtonSet gstrButtonRoute
         
     lstrShowFeatures = GetSetting(gstrIniAppName, "UI", "ShowFeatures")
+    
+    lblMCLContact.Caption = gstrOurContactWeb
+
     If IsBlank(lstrShowFeatures) Then
         lstrShowFeatures = True
     ElseIf UCase$(lstrShowFeatures) <> "TRUE" Or UCase$(lstrShowFeatures) <> "FALSE" Then
@@ -516,9 +519,10 @@ Private Sub timActivity_Timer()
 End Sub
 
 Private Sub lblMCLContact_Click()
-Dim StartDoc As Long
 
-     StartDoc = ShellExecute(Me.hwnd, "open", "mailto:email@example.com?Subject=MMOS (" & App.ProductName & " " & App.Major & "." & App.Minor & "." & App.Revision & ") Feedback", _
+   Dim StartDoc As Long
+
+     StartDoc = ShellExecute(Me.hwnd, "open", gstrOurContactWeb, _
        "", "C:\", 1)
 
 End Sub
